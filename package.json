@@ -5,7 +5,7 @@
   "scripts": {
     "pretest": "jshint .",
     "start": "node server/server.js",
-    "dev": "nodemon server/server.js --watch server common",
+    "dev": "nodemon server/server.js --watch server --watch common --ext js,json",
     "services": "lb-ng server/server.js client/js/services/lb-services.js"
   },
   "dependencies": {
