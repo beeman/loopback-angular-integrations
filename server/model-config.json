@@ -26,11 +26,11 @@
     "dataSource": "db",
     "public": false
   },
-  "item": {
+  "Item": {
     "dataSource": "db",
     "public": true
   },
-  "tag": {
+  "Tag": {
     "dataSource": "db",
     "public": true
   },

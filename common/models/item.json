@@ -1,5 +1,5 @@
 {
-  "name": "item",
+  "name": "Item",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
@@ -10,7 +10,7 @@
   "relations": {
     "tags": {
       "type": "referencesMany",
-      "model": "tag",
+      "model": "Tag",
       "property": "tagIds",
       "options": {
         "validate": true,

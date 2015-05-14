@@ -1,5 +1,5 @@
 {
-  "name": "tag",
+  "name": "Tag",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
