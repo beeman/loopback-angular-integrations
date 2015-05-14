@@ -1,0 +1,23 @@
+{
+  "name": "tag",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": 1
+    },
+    "name": {
+      "type": "string",
+      "id": 2,
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

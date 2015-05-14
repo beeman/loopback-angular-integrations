@@ -1,0 +1,24 @@
+{
+  "name": "item",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "relations": {
+    "tags": {
+      "type": "referencesMany",
+      "model": "tag",
+      "property": "tagIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
+  "validations": [],
+  "acls": [],
+  "methods": []
+}

@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Items
+        <span class="pull-right">
+          <a href="#" ui-sref="app.add" class="btn btn-default btn-xs">+</a>
+        </span>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <tr ng-repeat="item in ctrl.items">
+            <td>
+              <a href="#" ui-sref="app.edit({itemId: item.id})">
+                {{item.name}}
+              </a>
+
+              <span class="pull-right" ng-repeat="tag in item.tags">
+                <span class="badge">{{tag.name}}</span>&nbsp;
+              </span>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <pre>{{ctrl.items|json}}</pre>
+  </div>
+</div>
