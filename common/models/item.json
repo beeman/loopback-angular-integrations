@@ -7,6 +7,7 @@
       "type": "string"
     }
   },
+  "validations": [],
   "relations": {
     "tags": {
       "type": "referencesMany",
@@ -16,9 +17,13 @@
         "validate": true,
         "forceId": false
       }
+    },
+    "person": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "personId"
     }
   },
-  "validations": [],
   "acls": [],
   "methods": []
 }

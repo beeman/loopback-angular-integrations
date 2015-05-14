@@ -22,7 +22,8 @@ module.exports = function(app) {
     var newItem = {
       name: "Item name " + i,
       description: "Item description " + i,
-      tagIds: ["1"]
+      tagIds: ["1"],
+      personId: i
     };
 
     Item.create(newItem, function(err, createdItem){
