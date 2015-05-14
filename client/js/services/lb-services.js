@@ -1014,6 +1014,1031 @@ module.factory(
 
 /**
  * @ngdoc object
+ * @name lbServices.Item
+ * @header lbServices.Item
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `Item` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "Item",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/Items/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use Item.tags.findById() instead.
+        "prototype$__findById__tags": {
+          url: urlBase + "/Items/:id/tags/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Item.tags.destroyById() instead.
+        "prototype$__destroyById__tags": {
+          url: urlBase + "/Items/:id/tags/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Item.tags.updateById() instead.
+        "prototype$__updateById__tags": {
+          url: urlBase + "/Items/:id/tags/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Item.tags.link() instead.
+        "prototype$__link__tags": {
+          url: urlBase + "/Items/:id/tags/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Item.tags.unlink() instead.
+        "prototype$__unlink__tags": {
+          url: urlBase + "/Items/:id/tags/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Item.tags.exists() instead.
+        "prototype$__exists__tags": {
+          url: urlBase + "/Items/:id/tags/rel/:fk",
+          method: "HEAD"
+        },
+
+        // INTERNAL. Use Item.person() instead.
+        "prototype$__get__person": {
+          url: urlBase + "/Items/:id/person",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Item.tags() instead.
+        "prototype$__get__tags": {
+          isArray: true,
+          url: urlBase + "/Items/:id/tags",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Item.tags.create() instead.
+        "prototype$__create__tags": {
+          url: urlBase + "/Items/:id/tags",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Item.tags.destroyAll() instead.
+        "prototype$__delete__tags": {
+          url: urlBase + "/Items/:id/tags",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Item.tags.count() instead.
+        "prototype$__count__tags": {
+          url: urlBase + "/Items/:id/tags/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#create
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Items",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#upsert
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Items",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#exists
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Items/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#findById
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `filter` – `{object=}` - Filter defining fields and include
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Items/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#find
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/Items",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#findOne
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Items/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#updateAll
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/Items/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#deleteById
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/Items/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#count
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/Items/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#prototype$updateAttributes
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/Items/:id",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Person.items.findById() instead.
+        "::findById::Person::items": {
+          url: urlBase + "/People/:id/items/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Person.items.destroyById() instead.
+        "::destroyById::Person::items": {
+          url: urlBase + "/People/:id/items/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Person.items.updateById() instead.
+        "::updateById::Person::items": {
+          url: urlBase + "/People/:id/items/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Person.items() instead.
+        "::get::Person::items": {
+          isArray: true,
+          url: urlBase + "/People/:id/items",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Person.items.create() instead.
+        "::create::Person::items": {
+          url: urlBase + "/People/:id/items",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Person.items.destroyAll() instead.
+        "::delete::Person::items": {
+          url: urlBase + "/People/:id/items",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Person.items.count() instead.
+        "::count::Person::items": {
+          url: urlBase + "/People/:id/items/count",
+          method: "GET"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#updateOrCreate
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#update
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#destroyById
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#removeById
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name lbServices.Item#modelName
+    * @propertyOf lbServices.Item
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `Item`.
+    */
+    R.modelName = "Item";
+
+    /**
+     * @ngdoc object
+     * @name lbServices.Item.tags
+     * @header lbServices.Item.tags
+     * @object
+     * @description
+     *
+     * The object `Item.tags` groups methods
+     * manipulating `Tag` instances related to `Item`.
+     *
+     * Call {@link lbServices.Item#tags Item.tags()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#tags
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Queries tags of Item.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        R.tags = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::get::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#count
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Counts tags of Item.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.tags.count = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::count::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#create
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Creates a new instance in tags of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        R.tags.create = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::create::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#destroyAll
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Deletes all tags of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.tags.destroyAll = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::delete::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#destroyById
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Delete a related item by id for tags.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for tags
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.tags.destroyById = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::destroyById::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#exists
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Check the existence of tags relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for tags
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        R.tags.exists = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::exists::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#findById
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Find a related item by id for tags.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for tags
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        R.tags.findById = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::findById::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#link
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Add a related item by id for tags.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for tags
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method does not accept any data. Supply an empty object.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        R.tags.link = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::link::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#unlink
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Remove the tags relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for tags
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.tags.unlink = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::unlink::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#updateById
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Update a related item by id for tags.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for tags
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        R.tags.updateById = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::updateById::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#person
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Fetches belongsTo relation person.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Person` object.)
+         * </em>
+         */
+        R.person = function() {
+          var TargetResource = $injector.get("Person");
+          var action = TargetResource["::get::Item::person"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
  * @name lbServices.Tag
  * @header lbServices.Tag
  * @object
@@ -1033,7 +2058,7 @@ module.factory(
   "Tag",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/tags/:id",
+      urlBase + "/Tags/:id",
       { 'id': '@id' },
       {
 
@@ -1071,7 +2096,7 @@ module.factory(
          * </em>
          */
         "create": {
-          url: urlBase + "/tags",
+          url: urlBase + "/Tags",
           method: "POST"
         },
 
@@ -1109,7 +2134,7 @@ module.factory(
          * </em>
          */
         "upsert": {
-          url: urlBase + "/tags",
+          url: urlBase + "/Tags",
           method: "PUT"
         },
 
@@ -1141,7 +2166,7 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/tags/:id/exists",
+          url: urlBase + "/Tags/:id/exists",
           method: "GET"
         },
 
@@ -1176,7 +2201,7 @@ module.factory(
          * </em>
          */
         "findById": {
-          url: urlBase + "/tags/:id",
+          url: urlBase + "/Tags/:id",
           method: "GET"
         },
 
@@ -1210,7 +2235,7 @@ module.factory(
          */
         "find": {
           isArray: true,
-          url: urlBase + "/tags",
+          url: urlBase + "/Tags",
           method: "GET"
         },
 
@@ -1243,7 +2268,7 @@ module.factory(
          * </em>
          */
         "findOne": {
-          url: urlBase + "/tags/findOne",
+          url: urlBase + "/Tags/findOne",
           method: "GET"
         },
 
@@ -1277,7 +2302,7 @@ module.factory(
          * This method returns no data.
          */
         "updateAll": {
-          url: urlBase + "/tags/update",
+          url: urlBase + "/Tags/update",
           method: "POST"
         },
 
@@ -1307,7 +2332,7 @@ module.factory(
          * This method returns no data.
          */
         "deleteById": {
-          url: urlBase + "/tags/:id",
+          url: urlBase + "/Tags/:id",
           method: "DELETE"
         },
 
@@ -1339,7 +2364,7 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/tags/count",
+          url: urlBase + "/Tags/count",
           method: "GET"
         },
 
@@ -1376,8 +2401,69 @@ module.factory(
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/tags/:id",
+          url: urlBase + "/Tags/:id",
           method: "PUT"
+        },
+
+        // INTERNAL. Use Item.tags.findById() instead.
+        "::findById::Item::tags": {
+          url: urlBase + "/Items/:id/tags/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Item.tags.destroyById() instead.
+        "::destroyById::Item::tags": {
+          url: urlBase + "/Items/:id/tags/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Item.tags.updateById() instead.
+        "::updateById::Item::tags": {
+          url: urlBase + "/Items/:id/tags/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Item.tags.link() instead.
+        "::link::Item::tags": {
+          url: urlBase + "/Items/:id/tags/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Item.tags.unlink() instead.
+        "::unlink::Item::tags": {
+          url: urlBase + "/Items/:id/tags/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Item.tags.exists() instead.
+        "::exists::Item::tags": {
+          url: urlBase + "/Items/:id/tags/rel/:fk",
+          method: "HEAD"
+        },
+
+        // INTERNAL. Use Item.tags() instead.
+        "::get::Item::tags": {
+          isArray: true,
+          url: urlBase + "/Items/:id/tags",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Item.tags.create() instead.
+        "::create::Item::tags": {
+          url: urlBase + "/Items/:id/tags",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Item.tags.destroyAll() instead.
+        "::delete::Item::tags": {
+          url: urlBase + "/Items/:id/tags",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Item.tags.count() instead.
+        "::count::Item::tags": {
+          url: urlBase + "/Items/:id/tags/count",
+          method: "GET"
         },
       }
     );
@@ -1521,13 +2607,13 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name lbServices.Item
- * @header lbServices.Item
+ * @name lbServices.Person
+ * @header lbServices.Person
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `Item` model.
+ * A $resource object for interacting with the `Person` model.
  *
  * ## Example
  *
@@ -1537,17 +2623,60 @@ module.factory(
  *
  */
 module.factory(
-  "Item",
+  "Person",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/items/:id",
+      urlBase + "/People/:id",
       { 'id': '@id' },
       {
 
+        // INTERNAL. Use Person.items.findById() instead.
+        "prototype$__findById__items": {
+          url: urlBase + "/People/:id/items/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Person.items.destroyById() instead.
+        "prototype$__destroyById__items": {
+          url: urlBase + "/People/:id/items/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Person.items.updateById() instead.
+        "prototype$__updateById__items": {
+          url: urlBase + "/People/:id/items/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Person.items() instead.
+        "prototype$__get__items": {
+          isArray: true,
+          url: urlBase + "/People/:id/items",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Person.items.create() instead.
+        "prototype$__create__items": {
+          url: urlBase + "/People/:id/items",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Person.items.destroyAll() instead.
+        "prototype$__delete__items": {
+          url: urlBase + "/People/:id/items",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Person.items.count() instead.
+        "prototype$__count__items": {
+          url: urlBase + "/People/:id/items/count",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
-         * @name lbServices.Item#create
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#create
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1574,18 +2703,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Item` object.)
+         * This usually means the response is a `Person` object.)
          * </em>
          */
         "create": {
-          url: urlBase + "/items",
+          url: urlBase + "/People",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#upsert
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#upsert
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1612,18 +2741,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Item` object.)
+         * This usually means the response is a `Person` object.)
          * </em>
          */
         "upsert": {
-          url: urlBase + "/items",
+          url: urlBase + "/People",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#exists
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#exists
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1648,14 +2777,14 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/items/:id/exists",
+          url: urlBase + "/People/:id/exists",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#findById
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#findById
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1679,18 +2808,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Item` object.)
+         * This usually means the response is a `Person` object.)
          * </em>
          */
         "findById": {
-          url: urlBase + "/items/:id",
+          url: urlBase + "/People/:id",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#find
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#find
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1712,19 +2841,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Item` object.)
+         * This usually means the response is a `Person` object.)
          * </em>
          */
         "find": {
           isArray: true,
-          url: urlBase + "/items",
+          url: urlBase + "/People",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#findOne
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#findOne
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1746,18 +2875,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Item` object.)
+         * This usually means the response is a `Person` object.)
          * </em>
          */
         "findOne": {
-          url: urlBase + "/items/findOne",
+          url: urlBase + "/People/findOne",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#updateAll
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#updateAll
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1784,14 +2913,14 @@ module.factory(
          * This method returns no data.
          */
         "updateAll": {
-          url: urlBase + "/items/update",
+          url: urlBase + "/People/update",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#deleteById
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#deleteById
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1814,14 +2943,14 @@ module.factory(
          * This method returns no data.
          */
         "deleteById": {
-          url: urlBase + "/items/:id",
+          url: urlBase + "/People/:id",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#count
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#count
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1846,14 +2975,14 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/items/count",
+          url: urlBase + "/People/count",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#prototype$updateAttributes
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#prototype$updateAttributes
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1879,12 +3008,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Item` object.)
+         * This usually means the response is a `Person` object.)
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/items/:id",
+          url: urlBase + "/People/:id",
           method: "PUT"
+        },
+
+        // INTERNAL. Use Item.person() instead.
+        "::get::Item::person": {
+          url: urlBase + "/Items/:id/person",
+          method: "GET"
         },
       }
     );
@@ -1893,8 +3028,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#updateOrCreate
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#updateOrCreate
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1921,15 +3056,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Item` object.)
+         * This usually means the response is a `Person` object.)
          * </em>
          */
         R["updateOrCreate"] = R["upsert"];
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#update
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#update
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1959,8 +3094,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#destroyById
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#destroyById
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -1986,8 +3121,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Item#removeById
-         * @methodOf lbServices.Item
+         * @name lbServices.Person#removeById
+         * @methodOf lbServices.Person
          *
          * @description
          *
@@ -2014,14 +3149,277 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name lbServices.Item#modelName
-    * @propertyOf lbServices.Item
+    * @name lbServices.Person#modelName
+    * @propertyOf lbServices.Person
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `Item`.
+    * i.e. `Person`.
     */
-    R.modelName = "Item";
+    R.modelName = "Person";
 
+    /**
+     * @ngdoc object
+     * @name lbServices.Person.items
+     * @header lbServices.Person.items
+     * @object
+     * @description
+     *
+     * The object `Person.items` groups methods
+     * manipulating `Item` instances related to `Person`.
+     *
+     * Call {@link lbServices.Person#items Person.items()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person#items
+         * @methodOf lbServices.Person
+         *
+         * @description
+         *
+         * Queries items of Person.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        R.items = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::get::Person::items"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person.items#count
+         * @methodOf lbServices.Person.items
+         *
+         * @description
+         *
+         * Counts items of Person.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.items.count = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::count::Person::items"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person.items#create
+         * @methodOf lbServices.Person.items
+         *
+         * @description
+         *
+         * Creates a new instance in items of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        R.items.create = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::create::Person::items"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person.items#destroyAll
+         * @methodOf lbServices.Person.items
+         *
+         * @description
+         *
+         * Deletes all items of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.items.destroyAll = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::delete::Person::items"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person.items#destroyById
+         * @methodOf lbServices.Person.items
+         *
+         * @description
+         *
+         * Delete a related item by id for items.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for items
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.items.destroyById = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::destroyById::Person::items"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person.items#findById
+         * @methodOf lbServices.Person.items
+         *
+         * @description
+         *
+         * Find a related item by id for items.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for items
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        R.items.findById = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::findById::Person::items"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person.items#updateById
+         * @methodOf lbServices.Person.items
+         *
+         * @description
+         *
+         * Update a related item by id for items.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for items
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        R.items.updateById = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::updateById::Person::items"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
