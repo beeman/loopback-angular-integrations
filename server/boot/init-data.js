@@ -1,50 +1,67 @@
-module.exports = function(app) {
+var async = require('async');
+
+module.exports = function (app) {
 
   var Tag = app.models.Tag;
-
-  for(var i = 1; i < 10; i++) {
-
-    var newTag = {
-      name: "Tag" + i,
-      description: "Tag description " + i
-    };
-
-    Tag.create(newTag, function(err, createdTag){
-      if(err) console.log(err);
-      console.log('Created', createdTag);
-    });
-  }
-
   var Item = app.models.Item;
-
-  for(var i = 1; i < 10; i++) {
-
-    var newItem = {
-      name: "Item name " + i,
-      description: "Item description " + i,
-      tagIds: ["1"],
-      personId: i
-    };
-
-    Item.create(newItem, function(err, createdItem){
-      if(err) console.log(err);
-      console.log('Created', createdItem);
-    });
-  }
-
   var Person = app.models.Person;
 
-  for(var i = 1; i < 10; i++) {
-
-    var newPerson = {
-      name: "Person " + i,
-      email: "person" + i + "@example.com"
-    };
-
-    Person.create(newPerson, function(err, createdPerson){
-      if(err) console.log(err);
-      console.log('Created', createdPerson);
+  function destroyData() {
+    var models = [Tag, Item, Person];
+    async.each(models, function (model) {
+      console.log('Clearing %s data', model.modelName);
+      model.destroyAll();
     });
   }
+
+  function createPeople(ammount) {
+    for (var i = 0; i < ammount; i++) {
+      var newPerson = {
+        name: "Person " + i,
+        email: "person" + i + "@example.com"
+      };
+      Person.create(newPerson, function (err, res) {
+        if (err) console.log(err);
+        console.log('Created Person with id ' + res.id);
+      });
+    }
+  }
+
+  function createItems(ammount) {
+    for (var i = 0; i < ammount; i++) {
+      var newItem = {
+        name: "Item name " + i,
+        description: "Item description " + i
+      };
+      Item.create(newItem, function (err, res) {
+        if (err) console.log(err);
+        console.log('Created Item with id ' + res.id);
+      });
+    }
+  }
+
+  function createTags(ammount) {
+    for (var i = 0; i < ammount; i++) {
+      var newTag = {
+        name: "Tag" + i,
+        description: "Tag description " + i
+      };
+      Tag.create(newTag, function (err, res) {
+        if (err) console.log(err);
+        console.log('Created Tag with id ' + res.id);
+      });
+    }
+  }
+
+  async.series([
+      destroyData(),
+      createTags(3),
+      createPeople(3),
+      createItems(3)
+    ], function (err, results) {
+      if (err) console.log(err);
+      console.log(results);
+    }
+  )
 
 };

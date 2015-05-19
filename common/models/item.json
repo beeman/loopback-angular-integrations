@@ -2,9 +2,28 @@
   "name": "Item",
   "base": "PersistedModel",
   "idInjection": true,
+  "strict": true,
+  "persistUndefinedAsNull": true,
+  "options": {
+    "validateUpsert": true
+  },
   "properties": {
+    "id": {
+      "type": "string",
+      "required": true,
+      "defaultFn": "guid"
+    },
     "name": {
+      "type": "string",
+      "required": true
+    },
+    "personId": {
       "type": "string"
+    },
+    "tagIds": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],
@@ -20,8 +39,7 @@
     },
     "person": {
       "type": "belongsTo",
-      "model": "Person",
-      "foreignKey": "personId"
+      "model": "Person"
     }
   },
   "acls": [],

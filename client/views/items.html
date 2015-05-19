@@ -9,11 +9,21 @@
       </div>
       <div class="panel-body">
         <table class="table table-bordered">
+          <tr>
+            <th>Name</th>
+            <th>Person</th>
+            <th>Tags</th>
+          </tr>
           <tr ng-repeat="item in ctrl.items">
             <td>
               <a href="#" ui-sref="app.edit({itemId: item.id})">
                 {{item.name}}
               </a>
+            </td>
+            <td>
+              {{item.person.name}}
+            </td>
+            <td>
 
               <span class="pull-right" ng-repeat="tag in item.tags">
                 <span class="badge">{{tag.name}}</span>&nbsp;

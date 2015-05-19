@@ -1,8 +1,9 @@
 var app = angular.module('app');
-app.controller('ItemEditCtrl', function ($scope, $state, Item, tags, item) {
+app.controller('ItemEditCtrl', function ($scope, $state, Item, tags, item, people) {
 
   this.tags = tags;
   this.item = item;
+  this.people = people;
 
   this.formSchema = {
     type: 'object',
@@ -10,41 +11,47 @@ app.controller('ItemEditCtrl', function ($scope, $state, Item, tags, item) {
       name: {
         type: 'string',
         minLength: 2,
-        title: 'Text'
+        title: 'Name'
       },
       description: {
         type: 'string',
         title: 'Description'
       },
+      personId: {
+        type: 'string',
+        format: 'uiselect',
+        title: 'Person',
+        items: this.people
+      },
       tagIds: {
         type: 'array',
         format: 'uiselect',
         title: 'Tags',
-        placeholder: 'This is the placeholder for tags',
-        items: tags
+        items: this.tags
       }
     }
   };
 
-  this.form = [
-    {
+  this.form = [{
       key: 'name',
       type: 'string'
-    },
-    {
+    }, {
       key: 'description',
       type: 'textarea'
-    },
-    {
-      key: 'tagIds'
-    },
-    {
+    }, {
+      key: 'personId',
+      placeholder: 'Select one person'
+    }, {
+      key: 'tagIds',
+      placeholder: 'Select one or more tags'
+    }, {
       type: 'submit',
       title: 'Submit'
     }
   ];
 
   this.onSubmit = function () {
+    this.item.person = null;
     Item
       .upsert(this.item)
       .$promise
