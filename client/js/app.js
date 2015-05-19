@@ -1,9 +1,10 @@
 var app = angular.module('app', [
   'lbServices',
+  'schemaForm',
+  'angular-underscore/filters',
   'ui.select',
   'ui.router',
-  'pascalprecht.translate',
-  'schemaForm'
+  'pascalprecht.translate'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider',
@@ -25,7 +26,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
           items: function (Item) {
             return Item.find({
               filter: {
-                include: ['tags']
+                include: ['tags', 'person']
               }
             }).$promise;
           }
@@ -38,7 +39,25 @@ app.config(['$stateProvider', '$urlRouterProvider',
         controllerAs: 'ctrl',
         resolve: {
           item: function ($stateParams, Item) {
-            return Item.findById({id: $stateParams.itemId}).$promise;
+            return Item.findById({
+              id: $stateParams.itemId
+            }).$promise.then(function (res) {
+                res.personId = res.personId + "";
+                return res;
+              });
+          },
+          people: function (Person) {
+            return Person.find().$promise.then(function (people) {
+              var result = [];
+              people.map(function (person) {
+                result.push({
+                  value: person.id.toString(),
+                  label: person.name,
+                  description: person.email
+                });
+              });
+              return result;
+            });
           },
           tags: function (Tag) {
             return Tag.find().$promise.then(function (tags) {
@@ -63,6 +82,19 @@ app.config(['$stateProvider', '$urlRouterProvider',
         resolve: {
           item: function () {
             return {};
+          },
+          people: function (Person) {
+            return Person.find().$promise.then(function (people) {
+              var result = [];
+              people.map(function (person) {
+                result.push({
+                  value: person.id.toString(),
+                  label: person.name,
+                  description: person.email
+                });
+              });
+              return result;
+            });
           },
           tags: function (Tag) {
             return Tag.find().$promise.then(function (tags) {
