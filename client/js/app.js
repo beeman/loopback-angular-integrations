@@ -1,4 +1,5 @@
 var app = angular.module('app', [
+  'angularDui',
   'lbServices',
   'schemaForm',
   'angular-underscore/filters',
@@ -7,13 +8,52 @@ var app = angular.module('app', [
   'pascalprecht.translate'
 ]);
 
+app.run(function ($rootScope, DuiConfig) {
+  var appName = 'loopback-angular-schema-form';
+  var appNavitems = [
+    {label: 'Items', href: '#/app/items'}
+  ];
+  var appConfig = {
+    app: {
+      name: appName,
+      container: true
+    },
+    header: {
+      nav: {
+        class: 'navbar navbar-inverse navbar-fixed-top',
+        container: true,
+        title: appName,
+        href: '#/',
+        items: appNavitems
+      }
+    },
+    sidebar: {
+      class: 'col-md-2',
+      items: appNavitems
+    },
+    main: {
+      class: 'col-md-10'
+    },
+    footer: {
+      text: '<a href="https://github.com/beeman/angular-dui">angular-dui</a> by <a href="https://github.com/beeman">beeman</a>'
+    }
+  };
+
+  DuiConfig.setConfig(appConfig);
+
+  // TODO: the config should be dynamically handled by a service
+  $rootScope.dui = appConfig;
+});
+
+
 app.config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('app', {
         url: '/app',
         abstract: true,
-        template: '<ui-view></ui-view>'
+        templateUrl: 'views/app.html',
+        controller: 'AppCtrl'
       })
       .state('app.items', {
         url: '/items',
