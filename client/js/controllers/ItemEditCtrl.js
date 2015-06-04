@@ -4,6 +4,10 @@ app.controller('ItemEditCtrl', function ($scope, $state, Item, tags, item, peopl
   this.tags = tags;
   this.item = item;
   this.people = people;
+  this.statuses = [
+    {value: 'new', label: 'New'},
+    {value: 'old', label: 'Old'}
+  ];
 
   this.formSchema = {
     type: 'object',
@@ -16,6 +20,12 @@ app.controller('ItemEditCtrl', function ($scope, $state, Item, tags, item, peopl
       description: {
         type: 'string',
         title: 'Description'
+      },
+      status: {
+        type: 'string',
+        format: 'uiselect',
+        title: 'Status',
+        items: this.statuses
       },
       personId: {
         type: 'string',
@@ -33,21 +43,24 @@ app.controller('ItemEditCtrl', function ($scope, $state, Item, tags, item, peopl
   };
 
   this.form = [{
-      key: 'name',
-      type: 'string'
-    }, {
-      key: 'description',
-      type: 'textarea'
-    }, {
-      key: 'personId',
-      placeholder: 'Select one person'
-    }, {
-      key: 'tagIds',
-      placeholder: 'Select one or more tags'
-    }, {
-      type: 'submit',
-      title: 'Submit'
-    }
+    key: 'name',
+    type: 'string'
+  }, {
+    key: 'description',
+    type: 'textarea'
+  }, {
+    key: 'status',
+    placeholder: 'Select the status'
+  }, {
+    key: 'personId',
+    placeholder: 'Select one person'
+  }, {
+    key: 'tagIds',
+    placeholder: 'Select one or more tags'
+  }, {
+    type: 'submit',
+    title: 'Submit'
+  }
   ];
 
   this.onSubmit = function () {
