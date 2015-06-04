@@ -17,6 +17,10 @@
       "type": "string",
       "required": true
     },
+    "status": {
+      "type": "string",
+      "required": true
+    },
     "personId": {
       "type": "string"
     },

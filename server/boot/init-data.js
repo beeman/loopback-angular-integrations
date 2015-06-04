@@ -32,6 +32,7 @@ module.exports = function (app) {
       var newItem = {
         name: 'Item name ' + i,
         description: 'Item description ' + i,
+        status: 'new',
         personId: i,
         tagIds: ['1', '2']
       };
