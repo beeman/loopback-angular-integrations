@@ -1,5 +1,5 @@
 var app = angular.module('app');
-app.controller('ItemListCtrl', function ($scope, items) {
+app.controller('ItemListCtrl', function ($scope, $state, Item, items) {
 
   var self = this;
 
@@ -23,6 +23,9 @@ app.controller('ItemListCtrl', function ($scope, items) {
     value: '',
     label: 'Select batch operation',
     disable: true
+  }, {
+    value: 'changeStatus',
+    label: 'Change status'
   }, {
     value: 'delete',
     label: 'Delete'
@@ -54,8 +57,49 @@ app.controller('ItemListCtrl', function ($scope, items) {
 
   // This runs the actual operation on the items
   this.runBatchOperations = function (action, items) {
-    window.alert('Running ' + action + ' on ' + items.length + ' items');
+
+    switch (action) {
+      case 'changeStatus':
+        this.setItemStatus(items, window.prompt('Enter the new status'));
+        break;
+      case 'delete':
+        if (window.confirm('Are you sure?')) {
+          this.deleteItems(items);
+        }
+        break;
+      case 'duplicate':
+        this.duplicateItems(items);
+        break;
+      default:
+        window.alert('Running ' + action + ' on ' + items.length + ' items');
+    }
   };
 
+  this.setItemStatus = function (items, newStatus) {
+    var itemIds = items.map(function (item) {
+      return item.id;
+    });
+
+    Item.updateAll({where: {id: {inq: itemIds}}}, {status: newStatus}).$promise.then(function () {
+      $state.go($state.current, {}, {reload: true})
+    });
+  };
+
+  this.deleteItems = function (items) {
+    items.map(function (item) {
+      return Item.deleteById({id: item.id}).$promise.then(function () {
+        $state.go($state.current, {}, {reload: true})
+      });
+    });
+  };
+
+  this.duplicateItems = function (items) {
+    items.map(function (item) {
+      delete item.id;
+      return Item.create(item).$promise.then(function () {
+        $state.go($state.current, {}, {reload: true})
+      });
+    });
+  }
 
 });
