@@ -101,14 +101,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
               window.alert('Please select one ore more items');
               return;
             }
-            console.log('Selected items:', this.itemsSelected);
 
             // Check if there is a batch operation selected
             if (this.batchOperation === "") {
               window.alert('Please pick batch operation');
               return;
             }
-            console.log('Selected batch operation:', this.batchOperation);
 
             this.runBatchOperations(this.batchOperation, this.itemsSelected);
           };
@@ -228,9 +226,6 @@ app.directive('csSelect', function () {
     link: function (scope, element, attr, ctrl) {
 
       element.bind('change', function (evt) {
-
-        console.log(ctrl.tableState());
-
         scope.$apply(function () {
           ctrl.select(scope.row, 'multiple');
         });

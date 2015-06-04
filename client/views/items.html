@@ -19,7 +19,7 @@
                 <th class="col-md-2">Person</th>
                 <th class="col-md-2">Tags</th>
               </tr>
-              <tr st-select-row="item" st-select-mode="multiple" ng-repeat="item in ctrl.items">
+              <tr ng-repeat="item in ctrl.items">
                 <td cs-select="item"></td>
                 <td>
                   <a href="#" ui-sref="app.edit({itemId: item.id})">
