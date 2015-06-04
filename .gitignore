@@ -18,4 +18,4 @@ coverage
 node_modules
 npm-debug.log
 memdb.json
-client/vendor/
+client/bower_components/
