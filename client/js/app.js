@@ -28,12 +28,9 @@ app.run(function ($rootScope, DuiConfig) {
         items: appNavitems
       }
     },
-    sidebar: {
-      class: 'col-md-2',
-      items: appNavitems
-    },
+    sidebar: {},
     main: {
-      class: 'col-md-10'
+      class: 'col-md-12'
     },
     footer: {
       text: '<a href="https://github.com/beeman/angular-dui">angular-dui</a> by <a href="https://github.com/beeman">beeman</a>'
@@ -196,7 +193,7 @@ app.directive('csSelectAll', function () {
     },
     link: function (scope, element, attr, ctrl) {
       element.bind('change', function (evt) {
-        scope.rows.forEach(function(row){
+        scope.rows.forEach(function (row) {
           scope.$apply(function () {
             ctrl.select(row, 'multiple');
           });
