@@ -15,11 +15,11 @@
             <table st-table="ctrl.items" class="table table-bordered">
               <tr>
                 <th cs-select-all="ctrl.items" class="st-checkbox">&nbsp;</th>
-                <th st-sort='name'>Name</th>
-                <th>Person</th>
-                <th>Tags</th>
+                <th class="col-md-8" st-sort='name'>Name</th>
+                <th class="col-md-2">Person</th>
+                <th class="col-md-2">Tags</th>
               </tr>
-              <tr ng-repeat="item in ctrl.items">
+              <tr st-select-row="item" st-select-mode="multiple" ng-repeat="item in ctrl.items">
                 <td cs-select="item"></td>
                 <td>
                   <a href="#" ui-sref="app.edit({itemId: item.id})">
@@ -40,15 +40,12 @@
             </table>
           </div>
           <div class="panel-footer">
+            <select
+              ng-model="ctrl.batchOperation"
+              ng-options="item.value as item.label for item in ctrl.batchOperations">
 
-            <select ng-model="ctrl.batchOperation">
-              <option value="">Batch operations</option>
-              <option value="delete">Delete</option>
-              <option value="duplicate">Duplicate</option>
             </select>
-
             <a ng-click="ctrl.applyBatchOperation()" class="btn btn-default btn-xs">Apply</a>
-
           </div>
         </div>
 

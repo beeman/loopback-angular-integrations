@@ -78,7 +78,17 @@ app.config(['$stateProvider', '$urlRouterProvider',
           }, true);
 
           // The available batch operations
-          this.batchOperations = [];
+          this.batchOperations = [{
+            value: '',
+            label: 'Select batch operation',
+            disable: true
+          }, {
+            value: 'delete',
+            label: 'Delete'
+          }, {
+            value: 'duplicate',
+            label: 'Duplicate'
+          }];
 
           // The selected batch operation
           this.batchOperation = "";
@@ -218,6 +228,9 @@ app.directive('csSelect', function () {
     link: function (scope, element, attr, ctrl) {
 
       element.bind('change', function (evt) {
+
+        console.log(ctrl.tableState());
+
         scope.$apply(function () {
           ctrl.select(scope.row, 'multiple');
         });
