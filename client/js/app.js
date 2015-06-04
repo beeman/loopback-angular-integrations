@@ -5,6 +5,7 @@ var app = angular.module('app', [
   'angular-underscore/filters',
   'ui.select',
   'ui.router',
+  'smart-table',
   'pascalprecht.translate'
 ]);
 

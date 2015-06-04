@@ -10,3 +10,11 @@ body {
   text-align: center;
   font-size: 11px;
 }
+
+.st-sort-ascent:after{
+  content: '\2B06';
+}
+
+.st-sort-descent:after{
+  content: '\2B07';
+}
