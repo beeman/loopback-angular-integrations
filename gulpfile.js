@@ -13,13 +13,13 @@ var watchDirs = [
 
 var bsOptions = {
   server: {
-    baseDir: "./"
+    baseDir: "./client/"
   },
   port: 4000,
   logConnections: true
 };
 
-var BROWSER_SYNC_RELOAD_DELAY = 500;
+var BROWSER_SYNC_RELOAD_DELAY = 2000;
 
 gulp.task('nodemon', function (cb) {
   var called = false;
@@ -46,7 +46,9 @@ gulp.task('nodemon', function (cb) {
 
 
 gulp.task('serve', function () {
-  browserSync(bsOptions);
+  setTimeout(function reload() {
+    browserSync(bsOptions);
+  }, BROWSER_SYNC_RELOAD_DELAY);
   gulp.watch(watchDirs, {cwd: './'}, reload);
 });
 
