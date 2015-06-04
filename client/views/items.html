@@ -1,15 +1,15 @@
 <dui-screen>
   <dui-screen-content class="row">
 
-    <dui-box class="col-md-6">
+    <dui-box class="col-md-12">
       <dui-box-content>
 
         <div class="panel panel-default">
           <div class="panel-heading">
             Items
-        <span class="pull-right">
-          <a href="#" ui-sref="app.add" class="btn btn-default btn-xs">+</a>
-        </span>
+            <span class="pull-right">
+              <a href="#" ui-sref="app.add" class="btn btn-default btn-xs">+</a>
+            </span>
           </div>
           <div class="panel-body">
             <table st-table="ctrl.items" class="table table-bordered">
@@ -18,7 +18,7 @@
                 <th>Person</th>
                 <th>Tags</th>
               </tr>
-              <tr ng-repeat="item in ctrl.items">
+              <tr st-select-row="item" st-select-mode="multiple" ng-repeat="item in ctrl.items">
                 <td>
                   <a href="#" ui-sref="app.edit({itemId: item.id})">
                     {{item.name}}
@@ -37,6 +37,17 @@
               </tr>
             </table>
           </div>
+          <div class="panel-footer">
+
+            <select ng-model="ctrl.batchOperation">
+              <option value="">Batch operations</option>
+              <option value="delete">Delete</option>
+              <option value="duplicate">Duplicate</option>
+            </select>
+
+            <a ng-click="ctrl.applyBatchOperation()" class="btn btn-default btn-xs">Apply</a>
+
+          </div>
         </div>
 
       </dui-box-content>
@@ -47,6 +58,14 @@
         <pre>{{ctrl.items|json}}</pre>
       </dui-box-content>
     </dui-box>
+
+    <dui-box class="col-md-6">
+      <dui-box-content>
+        <pre>{{ctrl.batchOperation|json}}</pre>
+        <pre>{{ctrl.itemsSelected|json}}</pre>
+      </dui-box-content>
+    </dui-box>
+
 
   </dui-screen-content>
 </dui-screen>

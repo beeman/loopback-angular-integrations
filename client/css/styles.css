@@ -18,3 +18,7 @@ body {
 .st-sort-descent:after{
   content: '\2B07';
 }
+
+.st-selected {
+  background: #d1d1d1;
+}
