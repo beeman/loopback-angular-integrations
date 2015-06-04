@@ -15,7 +15,7 @@ module.exports = function (app) {
   }
 
   function createPeople(ammount) {
-    for (var i = 0; i < ammount; i++) {
+    for (var i = 1; i <= ammount; i++) {
       var newPerson = {
         name: "Person " + i,
         email: "person" + i + "@example.com"
@@ -28,10 +28,12 @@ module.exports = function (app) {
   }
 
   function createItems(ammount) {
-    for (var i = 0; i < ammount; i++) {
+    for (var i = 1; i <= ammount; i++) {
       var newItem = {
-        name: "Item name " + i,
-        description: "Item description " + i
+        name: 'Item name ' + i,
+        description: 'Item description ' + i,
+        personId: i,
+        tagIds: ['1', '2']
       };
       Item.create(newItem, function (err, res) {
         if (err) console.log(err);
@@ -41,7 +43,7 @@ module.exports = function (app) {
   }
 
   function createTags(ammount) {
-    for (var i = 0; i < ammount; i++) {
+    for (var i = 1; i <= ammount; i++) {
       var newTag = {
         name: "Tag" + i,
         description: "Tag description " + i
