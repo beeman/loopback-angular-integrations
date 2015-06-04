@@ -105,7 +105,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
           // This runs the actual operation on the items
           this.runBatchOperations = function (action, items) {
-            window.alert('Running', action, 'on', items.length, 'items');
+            window.alert('Running ' + action + ' on ' + items.length + ' items');
           };
 
         },
@@ -206,4 +206,51 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
 app.controller('AppCtrl', function ($scope) {
   $scope.pageTitle = 'loopback-angular-schema-form';
+});
+
+app.directive('csSelect', function () {
+  return {
+    require: '^stTable',
+    template: '<input type="checkbox"/>',
+    scope: {
+      row: '=csSelect'
+    },
+    link: function (scope, element, attr, ctrl) {
+
+      element.bind('change', function (evt) {
+        scope.$apply(function () {
+          ctrl.select(scope.row, 'multiple');
+        });
+      });
+
+      scope.$watch('row.isSelected', function (newValue, oldValue) {
+        if (newValue === true) {
+          element.parent().addClass('st-selected');
+          element.children()[0].checked = true;
+        } else {
+          element.parent().removeClass('st-selected');
+          element.children()[0].checked = false;
+        }
+      });
+    }
+  };
+});
+
+app.directive('csSelectAll', function () {
+  return {
+    require: '^stTable',
+    template: '<input type="checkbox"/>',
+    scope: {
+      rows: '=csSelectAll'
+    },
+    link: function (scope, element, attr, ctrl) {
+      element.bind('change', function (evt) {
+        scope.rows.forEach(function(row){
+          scope.$apply(function () {
+            ctrl.select(row, 'multiple');
+          });
+        });
+      });
+    }
+  };
 });

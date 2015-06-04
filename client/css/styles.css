@@ -22,3 +22,7 @@ body {
 .st-selected {
   background: #d1d1d1;
 }
+
+.st-checkbox {
+  width: 1%;
+}

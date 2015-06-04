@@ -14,11 +14,13 @@
           <div class="panel-body">
             <table st-table="ctrl.items" class="table table-bordered">
               <tr>
+                <th cs-select-all="ctrl.items" class="st-checkbox">&nbsp;</th>
                 <th st-sort='name'>Name</th>
                 <th>Person</th>
                 <th>Tags</th>
               </tr>
-              <tr st-select-row="item" st-select-mode="multiple" ng-repeat="item in ctrl.items">
+              <tr ng-repeat="item in ctrl.items">
+                <td cs-select="item"></td>
                 <td>
                   <a href="#" ui-sref="app.edit({itemId: item.id})">
                     {{item.name}}
