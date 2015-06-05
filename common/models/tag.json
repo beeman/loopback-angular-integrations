@@ -2,7 +2,7 @@
   "name": "Tag",
   "base": "PersistedModel",
   "idInjection": true,
-  "strict": true,
+  "strict": "throw",
   "persistUndefinedAsNull": true,
   "options": {
     "validateUpsert": true
@@ -10,11 +10,10 @@
   "properties": {
     "id": {
       "type": "string",
-      "id": 1
+      "id": true
     },
     "name": {
       "type": "string",
-      "id": 2,
       "required": true
     },
     "description": {

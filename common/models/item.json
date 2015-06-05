@@ -2,7 +2,7 @@
   "name": "Item",
   "base": "PersistedModel",
   "idInjection": true,
-  "strict": true,
+  "strict": "throw",
   "persistUndefinedAsNull": true,
   "options": {
     "validateUpsert": true
@@ -19,7 +19,11 @@
     },
     "status": {
       "type": "string",
-      "required": true
+      "required": true,
+      "default": "new"
+    },
+    "description": {
+      "type": "string"
     },
     "personId": {
       "type": "string"

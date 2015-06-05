@@ -2,7 +2,7 @@
   "name": "Person",
   "base": "PersistedModel",
   "idInjection": true,
-  "strict": true,
+  "strict": "throw",
   "persistUndefinedAsNull": true,
   "options": {
     "validateUpsert": true
