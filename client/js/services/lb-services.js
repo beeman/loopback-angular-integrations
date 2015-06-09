@@ -1447,6 +1447,39 @@ module.factory(
           method: "PUT"
         },
 
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#export
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Export items
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `res` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "export": {
+          url: urlBase + "/Items/export",
+          method: "GET"
+        },
+
         // INTERNAL. Use Person.items.findById() instead.
         "::findById::Person::items": {
           url: urlBase + "/People/:id/items/:fk",
