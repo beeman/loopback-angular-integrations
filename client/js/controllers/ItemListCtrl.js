@@ -32,6 +32,9 @@ app.controller('ItemListCtrl', function ($scope, $state, Item, items) {
   }, {
     value: 'duplicate',
     label: 'Duplicate'
+  }, {
+    value: 'export',
+    label: 'Export'
   }];
 
   // The selected batch operation
@@ -70,6 +73,9 @@ app.controller('ItemListCtrl', function ($scope, $state, Item, items) {
       case 'duplicate':
         this.duplicateItems(items);
         break;
+      case 'export':
+        this.exportItems(items);
+        break;
       default:
         window.alert('Running ' + action + ' on ' + items.length + ' items');
     }
@@ -100,6 +106,15 @@ app.controller('ItemListCtrl', function ($scope, $state, Item, items) {
         $state.go($state.current, {}, {reload: true})
       });
     });
-  }
+  };
+
+  this.exportItems = function (items) {
+    var itemIds = items.map(function (item) {
+      return item.id;
+    });
+    return Item.export().$promise.then(function () {
+      $state.go($state.current, {}, {reload: true});
+    });
+  };
 
 });

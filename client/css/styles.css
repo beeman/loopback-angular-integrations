@@ -20,7 +20,7 @@ body {
 }
 
 .st-selected {
-  background: #d1d1d1;
+  background: #eee!important;
 }
 
 .st-checkbox {
