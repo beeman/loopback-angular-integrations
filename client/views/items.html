@@ -18,7 +18,7 @@
                 <th class="col-md-6" st-sort='name'>Name</th>
                 <th class="col-md-2">Status</th>
                 <th class="col-md-2">Person</th>
-                <th class="col-md-2">Tags</th>
+                <th class="col-md-2">Created</th>
               </tr>
               <tr ng-repeat="item in ctrl.items">
                 <td cs-select="item"></td>
@@ -26,6 +26,9 @@
                   <a href="#" ui-sref="app.edit({itemId: item.id})">
                     {{item.name}}
                   </a>
+                  <span class="pull-right" ng-repeat="tag in item.tags">
+                    <span class="badge">{{tag.name}}</span>&nbsp;
+                  </span>
                 </td>
                 <td>
                   {{item.status}}
@@ -34,9 +37,7 @@
                   {{item.person.name}}
                 </td>
                 <td class="text-nowrap">
-                  <span class="pull-right" ng-repeat="tag in item.tags">
-                    <span class="badge">{{tag.name}}</span>&nbsp;
-                  </span>
+                  {{item.created | date: 'medium'}}
                 </td>
               </tr>
             </table>

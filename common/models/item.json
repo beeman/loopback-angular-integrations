@@ -32,6 +32,11 @@
       "type": [
         "string"
       ]
+    },
+    "created": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
     }
   },
   "validations": [],
