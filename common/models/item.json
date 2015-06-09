@@ -51,5 +51,26 @@
     }
   },
   "acls": [],
-  "methods": []
+  "methods": {
+    "export": {
+      "description": "Export items",
+      "isStatic": true,
+      "accepts": {
+        "arg": "res",
+        "type": "object",
+        "http": {
+          "source": "res"
+        }
+      },
+      "returns": {
+        "arg": "result",
+        "type": "string",
+        "root": true
+      },
+      "http": {
+        "path": "/export",
+        "verb": "get"
+      }
+    }
+  }
 }
