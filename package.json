@@ -1,5 +1,5 @@
 {
-  "name": "loopback-angular-schema-form",
+  "name": "loopback-angular-integrations",
   "version": "1.0.0",
   "main": "server/server.js",
   "scripts": {
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/loopbackers/loopback-angular-schema-form"
+    "url": "https://github.com/loopbackers/loopback-angular-integrations"
   },
-  "description": "Examples on how to integrate LoopBack with Angular Schema Form"
+  "description": "Experimenting with some integrations between LoopBack, AngularJS and various other projects"
 }

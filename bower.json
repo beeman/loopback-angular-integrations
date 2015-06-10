@@ -1,7 +1,7 @@
 {
-  "name": "loopback-angular-schema-form",
+  "name": "loopback-angular-integrations",
   "version": "1.0.0",
-  "homepage": "https://github.com/loopbackers/loopback-angular-schema-form",
+  "homepage": "https://github.com/beeman/loopback-angular-integrations",
   "ignore": [
     "**/.*",
     "node_modules",

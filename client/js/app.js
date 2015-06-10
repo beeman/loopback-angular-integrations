@@ -11,7 +11,7 @@ var app = angular.module('app', [
 ]);
 
 app.run(function ($rootScope, DuiConfig) {
-  var appName = 'loopback-angular-schema-form';
+  var appName = 'Integrations';
   var appNavitems = [
     {label: 'Items', href: '#/app/items'}
   ];
@@ -154,7 +154,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
 
 app.controller('AppCtrl', function ($scope) {
-  $scope.pageTitle = 'loopback-angular-schema-form';
+  // Nothing to control here :)
 });
 
 app.directive('csSelect', function () {
