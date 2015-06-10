@@ -6,6 +6,7 @@ var app = angular.module('app', [
   'ui.select',
   'ui.router',
   'smart-table',
+  'ngCsv',
   'pascalprecht.translate'
 ]);
 

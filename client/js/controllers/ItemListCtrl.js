@@ -117,4 +117,23 @@ app.controller('ItemListCtrl', function ($scope, $state, Item, items) {
     });
   };
 
+  this.getCsvName = 'items-export.csv';
+
+  this.getCsv = function () {
+    var timestamp = new Date().getTime();
+    this.getCsvName = 'items-export.' + timestamp + '.csv';
+    return this.itemsSelected.map(function (item) {
+      return {
+        id: item.id,
+        name: item.name,
+        status: item.status,
+        description: item.description
+      };
+    });
+  };
+
+  this.getCsvHeader = function () {
+    return ['ID', 'Name', 'Status', 'Description'];
+  };
+
 });

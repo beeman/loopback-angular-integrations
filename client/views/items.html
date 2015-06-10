@@ -49,6 +49,13 @@
 
             </select>
             <a ng-click="ctrl.applyBatchOperation()" class="btn btn-default btn-xs">Apply</a>
+
+            <button type="button" class="btn btn-default btn-xs"
+                    ng-csv="ctrl.getCsv()"
+                    csv-header="['id','name','status','description']"
+                    field-separator=";"
+                    filename="{{ctrl.getCsvName}}">Export
+            </button>
           </div>
         </div>
 
