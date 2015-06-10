@@ -189,18 +189,52 @@ app.directive('csSelect', function () {
 app.directive('csSelectAll', function () {
   return {
     require: '^stTable',
-    template: '<input type="checkbox"/>',
+    template: '<input type="checkbox" ng-model="isAllSelected"/>',
     scope: {
       rows: '=csSelectAll'
     },
-    link: function (scope, element, attr, ctrl) {
-      element.bind('change', function (evt) {
+    link: function (scope) {
+
+      function getAllSelected() {
+        return (getTotalRows() === getSelectedRows());
+      }
+
+      function getTotalRows() {
+        return scope.rows.length;
+      }
+
+      function getSelectedRows() {
+        var selectedRows = 0;
         scope.rows.forEach(function (row) {
-          scope.$apply(function () {
-            ctrl.select(row, 'multiple');
-          });
+          if (row.isSelected) {
+            selectedRows++;
+          }
         });
+        return selectedRows;
+      }
+
+      function setAllRows(bool) {
+        scope.rows.forEach(function (row) {
+          if (!row.isSelected == bool) {
+            row.isSelected = bool;
+          }
+        });
+      }
+
+      scope.$watch('rows', function () {
+        scope.isAllSelected = getAllSelected();
+      }, true);
+
+      scope.$watch('isAllSelected', function () {
+        if (scope.isAllSelected) {
+          setAllRows(true);
+        } else {
+          if (getAllSelected()) {
+            setAllRows(false);
+          }
+        }
       });
+      
     }
   };
 });
