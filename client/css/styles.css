@@ -26,3 +26,6 @@ body {
 .st-checkbox {
   width: 1%;
 }
+a {
+  cursor: pointer;
+}

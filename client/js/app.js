@@ -5,6 +5,7 @@ var app = angular.module('app', [
   'angular-underscore/filters',
   'ui.select',
   'ui.router',
+  'ui.bootstrap',
   'smart-table',
   'ngCsv',
   'pascalprecht.translate'
@@ -34,7 +35,7 @@ app.run(function ($rootScope, DuiConfig) {
       class: 'col-md-12'
     },
     footer: {
-      text: '<a href="https://github.com/beeman/angular-dui">angular-dui</a> by <a href="https://github.com/beeman">beeman</a>'
+      text: '<a href="https://github.com/beeman/loopback-angular-integrations">loopback-angular-integrations</a> by <a href="https://github.com/beeman">beeman</a>'
     }
   };
 
