@@ -1,5 +1,5 @@
 var app = angular.module('app');
-app.controller('ItemListCtrl', function ($scope, $state, Item, items) {
+app.controller('ItemListCtrl', function ($scope, $state, $modal, Item, items) {
 
   var self = this;
 
@@ -134,6 +134,78 @@ app.controller('ItemListCtrl', function ($scope, $state, Item, items) {
 
   this.getCsvHeader = function () {
     return ['ID', 'Name', 'Status', 'Description'];
+  };
+
+  this.getSelectedIds = function () {
+    return this.itemsSelected.map(function (item) {
+      return item.id;
+    })
+  };
+
+  this.handleCsvExport = function (options) {
+    var fields = {};
+
+    options.fields.map(function (field) {
+      if (field.selected) {
+        fields[field.name] = field.label;
+      }
+    });
+
+    return Item.find({
+      filter: {
+        where: {
+          id: {
+            inq: this.getSelectedIds()
+          }
+        },
+        fields: fields
+      }
+    }).$promise.then(function (res) {
+        if (options.headers) {
+          res.unshift(fields);
+        }
+        return res;
+      });
+  };
+
+
+  this.modalExport = function () {
+    $modal.open({
+      templateUrl: 'modalExport.html',
+      controllerAs: 'ctrl',
+      controller: function ($modalInstance) {
+        this.export = {
+          filename: self.getCsvName,
+          headers: true,
+          fields: [{
+            name: 'id',
+            label: 'ID',
+            selected: false
+          }, {
+            name: 'name',
+            label: 'Name',
+            selected: true
+          }, {
+            name: 'status',
+            label: 'Status',
+            selected: true
+          }, {
+            name: 'description',
+            label: 'Description',
+            selected: true
+          }]
+        };
+
+        this.exportCsv = function () {
+          $modalInstance.close();
+          return self.handleCsvExport(this.export);
+        };
+
+        this.cancel = function () {
+          $modalInstance.dismiss('cancel');
+        };
+      }
+    });
   };
 
 });

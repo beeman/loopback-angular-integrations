@@ -50,12 +50,8 @@
             </select>
             <a ng-click="ctrl.applyBatchOperation()" class="btn btn-default btn-xs">Apply</a>
 
-            <button type="button" class="btn btn-default btn-xs"
-                    ng-csv="ctrl.getCsv()"
-                    csv-header="['id','name','status','description']"
-                    field-separator=";"
-                    filename="{{ctrl.getCsvName}}">Export
-            </button>
+            <button class="btn btn-default btn-xs" ng-click="ctrl.modalExport()">Export</button>
+
           </div>
         </div>
 
@@ -80,5 +76,43 @@
   </dui-screen-content>
 </dui-screen>
 
+<script type="text/ng-template" id="modalExport.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Export to CSV</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Export options</label>
 
+        <div class="checkbox">
+          <label class="checkbox">
+            <input type="checkbox" ng-model="ctrl.export.headers"> Export with headers
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exportFilename">Filename</label>
+        <input id="exportFilename" type="text" class="form-control" ng-model="ctrl.export.filename">
+      </div>
+      <div class="form-group">
+        <label>Fields</label>
 
+        <div class="checkbox" ng-repeat="field in ctrl.export.fields">
+          <label class="checkbox">
+            <input type="checkbox" ng-model="field.selected"> {{field.label}}
+            <small class="text-muted">{{field.name}}</small>
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary"
+            ng-csv="ctrl.exportCsv()"
+            field-separator=";"
+            filename="{{ctrl.export.filename}}">Export
+    </button>
+    <button class="btn btn-default" ng-click="ctrl.cancel()">Cancel</button>
+  </div>
+</script>
