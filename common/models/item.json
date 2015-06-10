@@ -3,7 +3,6 @@
   "base": "PersistedModel",
   "idInjection": true,
   "strict": "throw",
-  "persistUndefinedAsNull": true,
   "options": {
     "validateUpsert": true
   },
