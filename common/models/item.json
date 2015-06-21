@@ -59,13 +59,14 @@
     "export": {
       "description": "Export items",
       "isStatic": true,
-      "accepts": {
-        "arg": "res",
+      "accepts": [{
+        "arg": "data",
         "type": "object",
+        "required": false,
         "http": {
-          "source": "res"
+          "source": "body"
         }
-      },
+      }],
       "returns": {
         "arg": "result",
         "type": "string",
@@ -73,7 +74,7 @@
       },
       "http": {
         "path": "/export",
-        "verb": "get"
+        "verb": "post"
       }
     }
   }

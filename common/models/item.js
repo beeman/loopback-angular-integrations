@@ -2,35 +2,52 @@ var csv = require('csv');
 
 module.exports = function (Item) {
 
-  Item.export = function (res, cb) {
-    Item.find()
-      .then(function (items) {
-        var content = items.map(function (item) {
-          return {
-            id: item.id,
-            name: item.name,
-            status: item.status
-          }
-        });
-        var options = {
-          header: true,
-          delimiter: ';'
-        };
-        csv.stringify(content, options, function (err, csv) {
-          if (err) cb(err);
-          cb(null, csv);
-        });
+  Item.export = function (data, cb) {
+
+    var headers = data.headers || true;
+    var delimiter = data.delimiter || ';';
+
+    var result = {
+      err: null,
+      csv: null
+    };
+
+    var filter = {};
+
+    if (data.idList && data.idList.length) {
+      filter.where = {
+        id: {
+          inq: data.idList
+        }
+      }
+    }
+
+    if (data.fields) {
+      filter.fields = {};
+      data.fields.map(function (field) {
+        filter.fields[field] = true;
       })
+    }
+    Item.find(filter).then(function (items) {
+      var content = items.map(function (item) {
+        var res = {};
+        data.fields.map(function (field) {
+          res[field] = item[field];
+        });
+
+        return res;
+      });
+      var options = {
+        header: headers,
+        delimiter: delimiter
+      };
+      csv.stringify(content, options, function (err, csv) {
+        result.err = err;
+        result.csv = csv;
+        cb(null, result);
+      });
+    })
       .catch(cb);
   };
-
-
-  Item.afterRemote('export', function (ctx, data, next) {
-    var filename = 'items-export.' + new Date().getTime() + '.csv';
-    ctx.res.attachment(filename);
-    ctx.res.send(data);
-    ctx.res.end();
-  });
-
 
 };
