@@ -36,6 +36,11 @@
       "type": "date",
       "required": true,
       "defaultFn": "now"
+    },
+    "archived": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   },
   "mixins": {
@@ -43,7 +48,7 @@
       "properties": {
         "name": "changeName",
         "status": "changeStatus",
-        "cancelled": "changeCancelled"
+        "archived": "changeArchived"
       }
     }
   },

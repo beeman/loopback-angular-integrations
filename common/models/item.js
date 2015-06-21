@@ -12,9 +12,20 @@ module.exports = function (Item) {
     console.log('changeStatus: valueList:', changes.getValueList());
   };
 
-  Item.changeCancelled = function(changes) {
-    console.log('changeCancelled: idList:', changes.getIdList());
-    console.log('changeCancelled: valueList:', changes.getValueList());
+  // Set the status to 'archived'
+  Item.changeArchived = function(changes) {
+    Item.updateAll({
+      id: {
+        inq: changes.getIdList()
+      }
+    }, {
+      archived: true,
+      status: 'archived'
+    }).then(function(res){
+      console.log('changeArchived: ', res);
+    }).catch(function(err){
+      console.log('changeArchived: err: ', err);
+    });
   };
 
   Item.export = function (data, cb) {

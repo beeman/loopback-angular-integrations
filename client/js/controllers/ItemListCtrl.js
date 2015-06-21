@@ -35,6 +35,10 @@ app.controller('ItemListCtrl', function ($scope, $state, $modal, $document,
     this.duplicateItems(this.itemsSelected);
   };
 
+  this.handleArchive= function () {
+    this.archiveItems(this.getSelectedIds());
+  };
+
   this.handleExport = function () {
     var datestamp = new Date().getTime();
     var options = {
@@ -72,6 +76,12 @@ app.controller('ItemListCtrl', function ($scope, $state, $modal, $document,
       return Item.create(item).$promise.then(function () {
         $state.go($state.current, {}, {reload: true})
       });
+    });
+  };
+
+  this.archiveItems = function(itemIds) {
+    Item.updateAll({where: {id: {inq: itemIds}}}, {archived: true}).$promise.then(function () {
+      $state.go($state.current, {}, {reload: true})
     });
   };
 
