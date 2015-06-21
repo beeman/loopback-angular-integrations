@@ -20,6 +20,7 @@
     "loopback-boot": "^2.7.1",
     "loopback-connector-mongodb": "^1.8.0",
     "loopback-datasource-juggler": "^2.28.0",
+    "loopback-ds-changed-mixin": "git://github.com/beeman/loopback-ds-changed-mixin.git#version-1.1.x",
     "serve-favicon": "^2.2.1"
   },
   "optionalDependencies": {

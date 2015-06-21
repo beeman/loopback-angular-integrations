@@ -38,6 +38,15 @@
       "defaultFn": "now"
     }
   },
+  "mixins": {
+    "Changed": {
+      "properties": {
+        "name": "changeName",
+        "status": "changeStatus",
+        "cancelled": "changeCancelled"
+      }
+    }
+  },
   "validations": [],
   "relations": {
     "tags": {

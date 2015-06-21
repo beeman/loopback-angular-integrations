@@ -3,6 +3,9 @@ var boot = require('loopback-boot');
 
 var app = module.exports = loopback();
 
+// Add Readonly Mixin to loopback
+require('loopback-ds-changed-mixin')(app);
+
 app.start = function() {
   // start the web server
   return app.listen(function() {

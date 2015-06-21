@@ -2,6 +2,21 @@ var csv = require('csv');
 
 module.exports = function (Item) {
 
+  Item.changeName = function(changes) {
+    console.log('changeName: idList:', changes.getIdList());
+    console.log('changeName: valueList:', changes.getValueList());
+  };
+
+  Item.changeStatus = function(changes) {
+    console.log('changeStatus: idList:', changes.getIdList());
+    console.log('changeStatus: valueList:', changes.getValueList());
+  };
+
+  Item.changeCancelled = function(changes) {
+    console.log('changeCancelled: idList:', changes.getIdList());
+    console.log('changeCancelled: valueList:', changes.getValueList());
+  };
+
   Item.export = function (data, cb) {
 
     var headers = data.headers || true;
