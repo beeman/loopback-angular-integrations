@@ -110,6 +110,12 @@ app.controller('ItemListCtrl', function ($scope, $timeout, Item) {
     self.getData(self.tableState);
   }, true);
 
+  $scope.$watch(angular.bind(this, function (items) {
+    return self.config.itemsPerPage;
+  }), function () {
+    self.getData(self.tableState);
+  }, true);
+
 
   /**
    * The model that holds the search values
