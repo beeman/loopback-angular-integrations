@@ -22,6 +22,7 @@
     "loopback-connector-mongodb": "1.11.1",
     "loopback-datasource-juggler": "2.30.1",
     "loopback-ds-changed-mixin": "git://github.com/beeman/loopback-ds-changed-mixin.git#version-1.1.x",
+    "loopback-ds-paginate-mixin": "git://github.com/fullcube/loopback-ds-paginate-mixin.git#45b4b702881f6f1b19d5ab5c8b88ea415cf2591c",
     "serve-favicon": "2.3.0"
   },
   "optionalDependencies": {
