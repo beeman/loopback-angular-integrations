@@ -50,6 +50,11 @@
         "status": "changeStatus",
         "archived": "changeArchived"
       }
+    },
+    "Paginate": {
+      "config": {
+        "limit": "10"
+      }
     }
   },
   "validations": [],
