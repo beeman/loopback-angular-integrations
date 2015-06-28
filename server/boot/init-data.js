@@ -59,7 +59,7 @@ module.exports = function (app) {
       destroyData(),
       createTags(3),
       createPeople(3),
-      createItems(3)
+      createItems(30)
     ], function (err, results) {
       if (err) console.log(err);
       console.log(results);
