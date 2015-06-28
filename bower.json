@@ -19,6 +19,7 @@
     "angular-dui": "master",
     "angular-smart-table": "~2.0.3",
     "ng-csv": "~0.3.3",
-    "angular-bootstrap": "~0.13.0"
+    "angular-bootstrap": "~0.13.0",
+    "font-awesome": "~4.3.0"
   }
 }
