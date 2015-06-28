@@ -14,7 +14,7 @@ var app = angular.module('app', [
 app.run(function ($rootScope, DuiConfig) {
   var appName = 'Integrations';
   var appNavitems = [
-    {label: 'Items', href: '#/app/items'}
+    {label: 'Items', href: '#/app/items/list'}
   ];
   var appConfig = {
     app: {
@@ -57,8 +57,18 @@ app.config(['$stateProvider', '$urlRouterProvider',
       })
       .state('app.items', {
         url: '/items',
+        abstract: true,
+        template: '<ui-view></ui-view>'
+      }).state('app.items.list', {
+        url: '/list',
+        templateUrl: 'views/items/list.html',
+        controllerAs: 'ctrl',
+        controller: 'ItemListCtrl'
+      })
+      .state('app.items.old', {
+        url: '/old',
         templateUrl: 'views/items.html',
-        controller: 'ItemListCtrl',
+        controller: 'ItemListOldCtrl',
         controllerAs: 'ctrl',
         resolve: {
           items: function (Item) {
@@ -70,7 +80,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
           }
         }
       })
-      .state('app.edit', {
+      .state('app.items.edit', {
         url: '/edit/:itemId',
         templateUrl: 'views/form.html',
         controller: 'ItemEditCtrl',
@@ -112,6 +122,23 @@ app.config(['$stateProvider', '$urlRouterProvider',
           }
         }
       })
+      .state('app.items.view', {
+        url: '/view/:itemId',
+        template: '<pre>{{ctrl.item|json}}</pre>',
+        resolve: {
+          item: function ($stateParams, Item) {
+            return Item.findById({
+              id: $stateParams.itemId
+            }).$promise.then(function (res) {
+              return res;
+            });
+          }
+        },
+        controller: function(item){
+          this.item = item;
+        },
+        controllerAs: 'ctrl'
+      })
       .state('app.add', {
         url: '/add',
         templateUrl: 'views/form.html',
@@ -150,7 +177,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
         }
       });
 
-    $urlRouterProvider.otherwise('/app/items');
+    $urlRouterProvider.otherwise('/app/items/list');
   }]);
 
 
@@ -234,7 +261,7 @@ app.directive('csSelectAll', function () {
           }
         }
       });
-      
+
     }
   };
 });
