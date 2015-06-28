@@ -71,6 +71,9 @@ module.factory(
          * </em>
          */
         "prototype$__findById__accessTokens": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Users/:id/accessTokens/:fk",
           method: "GET"
         },
@@ -103,6 +106,9 @@ module.factory(
          * This method returns no data.
          */
         "prototype$__destroyById__accessTokens": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Users/:id/accessTokens/:fk",
           method: "DELETE"
         },
@@ -142,6 +148,9 @@ module.factory(
          * </em>
          */
         "prototype$__updateById__accessTokens": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Users/:id/accessTokens/:fk",
           method: "PUT"
         },
@@ -317,6 +326,45 @@ module.factory(
          * </em>
          */
         "create": {
+          url: urlBase + "/Users",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User#createMany
+         * @methodOf lbServices.User
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
           url: urlBase + "/Users",
           method: "POST"
         },
@@ -1039,36 +1087,54 @@ module.factory(
 
         // INTERNAL. Use Item.tags.findById() instead.
         "prototype$__findById__tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/:fk",
           method: "GET"
         },
 
         // INTERNAL. Use Item.tags.destroyById() instead.
         "prototype$__destroyById__tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/:fk",
           method: "DELETE"
         },
 
         // INTERNAL. Use Item.tags.updateById() instead.
         "prototype$__updateById__tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/:fk",
           method: "PUT"
         },
 
         // INTERNAL. Use Item.tags.link() instead.
         "prototype$__link__tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/rel/:fk",
           method: "PUT"
         },
 
         // INTERNAL. Use Item.tags.unlink() instead.
         "prototype$__unlink__tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/rel/:fk",
           method: "DELETE"
         },
 
         // INTERNAL. Use Item.tags.exists() instead.
         "prototype$__exists__tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/rel/:fk",
           method: "HEAD"
         },
@@ -1138,6 +1204,45 @@ module.factory(
          * </em>
          */
         "create": {
+          url: urlBase + "/Items",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#createMany
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
           url: urlBase + "/Items",
           method: "POST"
         },
@@ -1485,20 +1590,69 @@ module.factory(
           method: "POST"
         },
 
+        /**
+         * @ngdoc method
+         * @name lbServices.Item#paginate
+         * @methodOf lbServices.Item
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        "paginate": {
+          url: urlBase + "/Items/paginate",
+          method: "POST"
+        },
+
         // INTERNAL. Use Person.items.findById() instead.
         "::findById::Person::items": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/People/:id/items/:fk",
           method: "GET"
         },
 
         // INTERNAL. Use Person.items.destroyById() instead.
         "::destroyById::Person::items": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/People/:id/items/:fk",
           method: "DELETE"
         },
 
         // INTERNAL. Use Person.items.updateById() instead.
         "::updateById::Person::items": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/People/:id/items/:fk",
           method: "PUT"
         },
@@ -1512,6 +1666,13 @@ module.factory(
 
         // INTERNAL. Use Person.items.create() instead.
         "::create::Person::items": {
+          url: urlBase + "/People/:id/items",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Person.items.createMany() instead.
+        "::createMany::Person::items": {
+          isArray: true,
           url: urlBase + "/People/:id/items",
           method: "POST"
         },
@@ -1784,6 +1945,44 @@ module.factory(
         R.tags.create = function() {
           var TargetResource = $injector.get("Tag");
           var action = TargetResource["::create::Item::tags"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Item.tags#createMany
+         * @methodOf lbServices.Item.tags
+         *
+         * @description
+         *
+         * Creates a new instance in tags of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        R.tags.createMany = function() {
+          var TargetResource = $injector.get("Tag");
+          var action = TargetResource["::createMany::Item::tags"];
           return action.apply(R, arguments);
         };
 
@@ -2140,6 +2339,45 @@ module.factory(
 
         /**
          * @ngdoc method
+         * @name lbServices.Tag#createMany
+         * @methodOf lbServices.Tag
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Tag` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
+          url: urlBase + "/Tags",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
          * @name lbServices.Tag#upsert
          * @methodOf lbServices.Tag
          *
@@ -2417,7 +2655,8 @@ module.factory(
          *
          * @param {Object=} parameters Request parameters.
          *
-         *  - `id` – `{*}` - PersistedModel id
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
          *
          * @param {Object} postData Request data.
          *
@@ -2445,36 +2684,54 @@ module.factory(
 
         // INTERNAL. Use Item.tags.findById() instead.
         "::findById::Item::tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/:fk",
           method: "GET"
         },
 
         // INTERNAL. Use Item.tags.destroyById() instead.
         "::destroyById::Item::tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/:fk",
           method: "DELETE"
         },
 
         // INTERNAL. Use Item.tags.updateById() instead.
         "::updateById::Item::tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/:fk",
           method: "PUT"
         },
 
         // INTERNAL. Use Item.tags.link() instead.
         "::link::Item::tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/rel/:fk",
           method: "PUT"
         },
 
         // INTERNAL. Use Item.tags.unlink() instead.
         "::unlink::Item::tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/rel/:fk",
           method: "DELETE"
         },
 
         // INTERNAL. Use Item.tags.exists() instead.
         "::exists::Item::tags": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/Items/:id/tags/rel/:fk",
           method: "HEAD"
         },
@@ -2488,6 +2745,13 @@ module.factory(
 
         // INTERNAL. Use Item.tags.create() instead.
         "::create::Item::tags": {
+          url: urlBase + "/Items/:id/tags",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Item.tags.createMany() instead.
+        "::createMany::Item::tags": {
+          isArray: true,
           url: urlBase + "/Items/:id/tags",
           method: "POST"
         },
@@ -2670,18 +2934,27 @@ module.factory(
 
         // INTERNAL. Use Person.items.findById() instead.
         "prototype$__findById__items": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/People/:id/items/:fk",
           method: "GET"
         },
 
         // INTERNAL. Use Person.items.destroyById() instead.
         "prototype$__destroyById__items": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/People/:id/items/:fk",
           method: "DELETE"
         },
 
         // INTERNAL. Use Person.items.updateById() instead.
         "prototype$__updateById__items": {
+          params: {
+          'fk': '@fk'
+          },
           url: urlBase + "/People/:id/items/:fk",
           method: "PUT"
         },
@@ -2745,6 +3018,45 @@ module.factory(
          * </em>
          */
         "create": {
+          url: urlBase + "/People",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person#createMany
+         * @methodOf lbServices.Person
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Person` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
           url: urlBase + "/People",
           method: "POST"
         },
@@ -3028,7 +3340,8 @@ module.factory(
          *
          * @param {Object=} parameters Request parameters.
          *
-         *  - `id` – `{*}` - PersistedModel id
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
          *
          * @param {Object} postData Request data.
          *
@@ -3316,6 +3629,44 @@ module.factory(
         R.items.create = function() {
           var TargetResource = $injector.get("Item");
           var action = TargetResource["::create::Person::items"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Person.items#createMany
+         * @methodOf lbServices.Person.items
+         *
+         * @description
+         *
+         * Creates a new instance in items of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Item` object.)
+         * </em>
+         */
+        R.items.createMany = function() {
+          var TargetResource = $injector.get("Item");
+          var action = TargetResource["::createMany::Person::items"];
           return action.apply(R, arguments);
         };
 
