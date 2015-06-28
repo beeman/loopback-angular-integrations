@@ -104,10 +104,9 @@ app.controller('ItemListCtrl', function ($scope, $timeout, Item) {
     })
   }, true);
 
-  // Watch these items and add the selected ones to a new array
   $scope.$watch(angular.bind(this, function (items) {
-    return self.paginateState;
-  }), function (newItems) {
+    return self.tableState;
+  }), function () {
     self.getData(self.tableState);
   }, true);
 
