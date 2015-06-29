@@ -61,9 +61,115 @@ app.config(['$stateProvider', '$urlRouterProvider',
         template: '<ui-view></ui-view>'
       }).state('app.items.list', {
         url: '/list',
-        templateUrl: 'views/items/list.html',
+        template: '<fc-table config="ctrl.config"></fc-table>',
         controllerAs: 'ctrl',
-        controller: 'ItemListCtrl'
+        controller: function ($state, $window, Item) {
+          this.config = {
+            model: Item,
+            itemsPerPage: 5,
+            debug: true,
+            loadingTimeout: 250,
+            includeModels: [
+              'person',
+              'tags'
+            ],
+            columns: [{
+              field: 'name',
+              sortField: 'name',
+              class: 'sorting col-md-2',
+              label: 'Name',
+              click: function (item) {
+                $state.go('app.items.view', {itemId: item.id});
+              }
+            }, {
+              field: 'status',
+              sortField: 'status',
+              class: 'sorting col-md-2',
+              label: 'Status'
+            }, {
+              field: 'description',
+              sortField: 'description',
+              class: 'sorting col-md-3 text-nowrap',
+              label: 'Description'
+            }, {
+              field: 'person',
+              sortField: 'personId',
+              relatedField: 'name',
+              class: 'sorting col-md-3 text-nowrap',
+              label: 'Person'
+            }],
+            topButtons: [{
+              label: '',
+              icon: 'fa fa-plus',
+              class: 'btn btn-default btn-sm',
+              show: true,
+              click: function () {
+                $state.go('app.items.add');
+              }
+            }],
+            rowButtons: [{
+              label: 'View',
+              class: 'btn btn-default btn-xs',
+              click: function (item) {
+                $state.go('app.items.view', {itemId: item.id});
+              }
+            }, {
+              label: '',
+              class: 'btn btn-default btn-xs',
+              icon: 'fa fa-pencil',
+              click: function (item) {
+                $state.go('app.items.edit', {itemId: item.id});
+              }
+            }, {
+              label: '',
+              class: 'btn btn-default btn-xs',
+              icon: 'fa fa-trash',
+              click: function (item) {
+                if($window.confirm('Are you sure?')) {
+                  Item.delete({id: item.id}).$promise.then(function(res){
+                    $state.reload();
+                  })
+                }
+              }
+            }],
+            search: {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: {
+                    type: 'string',
+                    title: 'Name'
+                  },
+                  status: {
+                    type: 'string',
+                    title: 'Status'
+                  },
+                  description: {
+                    type: 'string',
+                    title: 'Description'
+                  }
+                }
+              },
+              form: [{
+                type: 'section',
+                htmlClass: 'row',
+                items: [{
+                  type: 'section',
+                  items: [{
+                    htmlClass: 'col-md-4',
+                    key: 'name'
+                  }, {
+                    htmlClass: 'col-md-4',
+                    key: 'status'
+                  }, {
+                    htmlClass: 'col-md-4',
+                    key: 'description'
+                  }]
+                }]
+              }]
+            }
+          };
+        }
       })
       .state('app.items.old', {
         url: '/old',
@@ -139,7 +245,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
         },
         controllerAs: 'ctrl'
       })
-      .state('app.add', {
+      .state('app.items.add', {
         url: '/add',
         templateUrl: 'views/form.html',
         controller: 'ItemEditCtrl',

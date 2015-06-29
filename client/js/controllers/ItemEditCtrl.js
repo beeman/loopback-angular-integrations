@@ -71,7 +71,7 @@ app.controller('ItemEditCtrl', function ($scope, $state, Item, tags, item, peopl
       .then(
       function (result) {
         window.alert('Your item has been saved!');
-        $state.go('app.items');
+        $state.go('app.items.list');
       }
     );
   };
