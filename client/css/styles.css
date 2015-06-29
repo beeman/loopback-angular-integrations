@@ -29,3 +29,11 @@ body {
 a {
   cursor: pointer;
 }
+.panel-heading .label,
+.pagination {
+  margin: 0px;
+}
+
+td.select-box {
+  width: 1% !important;
+}
