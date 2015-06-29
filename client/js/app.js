@@ -14,7 +14,8 @@ var app = angular.module('app', [
 app.run(function ($rootScope, DuiConfig) {
   var appName = 'Integrations';
   var appNavitems = [
-    {label: 'Items', href: '#/app/items/list'}
+    {label: 'Items', href: '#/app/items/list'},
+    {label: 'Tags', href: '#/app/tags/list'},
   ];
   var appConfig = {
     app: {
@@ -171,6 +172,72 @@ app.config(['$stateProvider', '$urlRouterProvider',
           };
         }
       })
+      .state('app.tags', {
+        url: '/tags',
+        abstract: true,
+        template: '<ui-view></ui-view>'
+      }).state('app.tags.list', {
+        url: '/list',
+        template: '<fc-table config="ctrl.config"></fc-table>',
+        controllerAs: 'ctrl',
+        controller: function ($state, $window, Tag) {
+          this.config = {
+            model: Tag,
+            itemsPerPage: 5,
+            debug: true,
+            loadingTimeout: 250,
+            columns: [{
+              field: 'name',
+              sortField: 'name',
+              class: 'sorting col-md-2',
+              label: 'Name',
+              click: function (item) {
+                $state.go('app.tags.view', {tagId: item.id});
+              }
+            }],
+            search: {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: {
+                    type: 'string',
+                    title: 'Name'
+                  }
+                }
+              },
+              form: [{
+                type: 'section',
+                htmlClass: 'row',
+                items: [{
+                  type: 'section',
+                  items: [{
+                    htmlClass: 'col-md-4',
+                    key: 'name'
+                  }]
+                }]
+              }]
+            }
+          };
+        }
+      })
+      .state('app.tags.view', {
+        url: '/view/:tagId',
+        template: '<pre>{{ctrl.tag|json}}</pre>',
+        resolve: {
+          tag: function ($stateParams, Tag) {
+            return Tag.findById({
+              id: $stateParams.tagId
+            }).$promise.then(function (res) {
+                return res;
+              });
+          }
+        },
+        controller: function(tag){
+          this.tag = tag;
+        },
+        controllerAs: 'ctrl'
+      })
+
       .state('app.items.old', {
         url: '/old',
         templateUrl: 'views/items.html',
