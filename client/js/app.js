@@ -6,8 +6,8 @@ var app = angular.module('app', [
   'ui.select',
   'ui.router',
   'ui.bootstrap',
-  'smart-table',
   'ngCsv',
+  'fc.table',
   'pascalprecht.translate'
 ]);
 
@@ -356,85 +356,4 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
 app.controller('AppCtrl', function ($scope) {
   // Nothing to control here :)
-});
-
-app.directive('csSelect', function () {
-  return {
-    require: '^stTable',
-    template: '<input type="checkbox"/>',
-    scope: {
-      row: '=csSelect'
-    },
-    link: function (scope, element, attr, ctrl) {
-
-      element.bind('change', function (evt) {
-        scope.$apply(function () {
-          ctrl.select(scope.row, 'multiple');
-        });
-      });
-
-      scope.$watch('row.isSelected', function (newValue, oldValue) {
-        if (newValue === true) {
-          element.parent().addClass('st-selected');
-          element.children()[0].checked = true;
-        } else {
-          element.parent().removeClass('st-selected');
-          element.children()[0].checked = false;
-        }
-      });
-    }
-  };
-});
-
-app.directive('csSelectAll', function () {
-  return {
-    require: '^stTable',
-    template: '<input type="checkbox" ng-model="isAllSelected"/>',
-    scope: {
-      rows: '=csSelectAll'
-    },
-    link: function (scope) {
-
-      function getAllSelected() {
-        return (getTotalRows() === getSelectedRows());
-      }
-
-      function getTotalRows() {
-        return scope.rows.length;
-      }
-
-      function getSelectedRows() {
-        var selectedRows = 0;
-        scope.rows.forEach(function (row) {
-          if (row.isSelected) {
-            selectedRows++;
-          }
-        });
-        return selectedRows;
-      }
-
-      function setAllRows(bool) {
-        scope.rows.forEach(function (row) {
-          if (!row.isSelected == bool) {
-            row.isSelected = bool;
-          }
-        });
-      }
-
-      scope.$watch('rows', function () {
-        scope.isAllSelected = getAllSelected();
-      }, true);
-
-      scope.$watch('isAllSelected', function () {
-        if (scope.isAllSelected) {
-          setAllRows(true);
-        } else {
-          if (getAllSelected()) {
-            setAllRows(false);
-          }
-        }
-      });
-
-    }
-  };
 });

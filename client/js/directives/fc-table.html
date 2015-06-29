@@ -73,7 +73,7 @@
             <table class="table table-striped table-bordered table-hover  table-small-font">
                 <thead>
                 <tr role="row">
-                    <th cs-select-all="table.state.items" class="select-box cs-select-rows"></th>
+                    <th fc-select-all="table.state.items" class="select-box fc-select-rows"></th>
                     <th ng-repeat="column in table.config.columns"
                         st-sort="{{column.sortField}}"
                         class="{{column.class}}">
@@ -84,7 +84,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in table.state.items track by item.id">
-                    <td cs-select="item" class="select-box"></td>
+                    <td fc-select="item" class="select-box"></td>
 
                     <td ng-repeat="column in table.config.columns">
                             <span ng-show="column.click">

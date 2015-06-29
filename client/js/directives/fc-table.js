@@ -1,4 +1,4 @@
-var app = angular.module('app');
+var app = angular.module('fc.table', ['smart-table', 'schemaForm']);
 
 app.directive('fcTable', function () {
   return {
@@ -236,8 +236,6 @@ app.directive('fcTable', function () {
   };
 });
 
-
-
 app.directive('fcSelect', function () {
   return {
     require: '^stTable',
@@ -268,7 +266,11 @@ app.directive('fcSelect', function () {
 
 app.directive('fcSelectAll', function () {
   return {
+    require: '^stTable',
     template: '<input type="checkbox" ng-model="isAllSelected"/>',
+    scope: {
+      rows: '=fcSelectAll'
+    },
     link: function (scope) {
 
       function getAllSelected() {
@@ -276,12 +278,12 @@ app.directive('fcSelectAll', function () {
       }
 
       function getTotalRows() {
-        return scope.items.length;
+        return scope.rows.length;
       }
 
       function getSelectedRows() {
         var selectedRows = 0;
-        scope.items.forEach(function (row) {
+        scope.rows.forEach(function (row) {
           if (row.isSelected) {
             selectedRows++;
           }
@@ -290,14 +292,14 @@ app.directive('fcSelectAll', function () {
       }
 
       function setAllRows(bool) {
-        scope.items.forEach(function (row) {
+        scope.rows.forEach(function (row) {
           if (!row.isSelected == bool) {
             row.isSelected = bool;
           }
         });
       }
 
-      scope.$watch('items', function () {
+      scope.$watch('rows', function () {
         scope.isAllSelected = getAllSelected();
       }, true);
 
