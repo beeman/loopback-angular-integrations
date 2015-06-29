@@ -69,7 +69,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
             model: Item,
             itemsPerPage: 5,
             debug: true,
-            loadingTimeout: 250,
+            loadingTimeout: 1000,
             includeModels: [
               'person',
               'tags'

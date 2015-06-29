@@ -68,6 +68,11 @@ app.directive('fcTable', function () {
 
       };
 
+      this.refresh = function refresh() {
+        if(!self.isLoading){
+          this.getData(self.tableState);
+        }
+      };
 
       /**
        * Method that gets called from the view
@@ -79,6 +84,7 @@ app.directive('fcTable', function () {
 
         // Start loading indicator
         self.isLoading = true;
+        console.log('Loading Start');
 
         // Set skip
         self.setPaginateSkip();
@@ -102,6 +108,7 @@ app.directive('fcTable', function () {
             // Stop loading indicator
             self.isLoading = false;
 
+            console.log('Loading End');
           });
 
         }, self.loadingTimeout);
@@ -190,8 +197,6 @@ app.directive('fcTable', function () {
         self.state.paginated = paginated.items;
         self.state.items = [].concat(self.state.paginated);
 
-        console.log('paginated', paginated);
-
       };
 
 
@@ -217,19 +222,23 @@ app.directive('fcTable', function () {
         })
       }, true);
 
-      //$scope.$watch(angular.bind(this, function () {
-      //  return self.state;
-      //}), function () {
-      //  if (!self.isLoading) {
-      //    self.getData(self.state);
-      //  }
-      //}, true);
+      $scope.$watch(angular.bind(this, function () {
+        return self.state.request.searchTerms;
+      }), function () {
+        self.refresh();
+      }, true);
 
-      //$scope.$watch(angular.bind(this, function () {
-      //  return self.config.itemsPerPage;
-      //}), function () {
-      //  self.getData(self.tableState);
-      //}, true);
+      $scope.$watch(angular.bind(this, function () {
+        return self.state.request.sortOrder;
+      }), function () {
+        self.refresh();
+      }, true);
+
+      $scope.$watch(angular.bind(this, function () {
+        return self.config.itemsPerPage;
+      }), function () {
+        self.refresh();
+      }, true);
 
 
     }
@@ -253,10 +262,10 @@ app.directive('fcSelect', function () {
 
       scope.$watch('row.isSelected', function (newValue, oldValue) {
         if (newValue === true) {
-          element.parent().addClass('st-selected');
+          element.parent().addClass('fc-selected-row');
           element.children()[0].checked = true;
         } else {
-          element.parent().removeClass('st-selected');
+          element.parent().removeClass('fc-selected-row');
           element.children()[0].checked = false;
         }
       });

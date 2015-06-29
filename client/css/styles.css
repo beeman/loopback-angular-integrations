@@ -19,21 +19,25 @@ body {
   content: '\2B07';
 }
 
-.st-selected {
-  background: #eee!important;
-}
-
-.st-checkbox {
-  width: 1%;
-}
 a {
   cursor: pointer;
 }
-.panel-heading .label,
-.pagination {
+.fc-table .panel-footer .label,
+.fc-table .panel-heading .label,
+.fc-table .pagination {
   margin: 0px;
 }
+.fc-table .form-group {
+  margin-bottom: 0px;
+}
+.fc-table .fc-selected-row {
+  background: #eee!important;
+}
+.fc-table .fc-checkbox {
+  width: 1%!important;
+}
 
-td.select-box {
+.fc-table td.select-box {
   width: 1% !important;
 }
+
