@@ -5,14 +5,10 @@
   "initial": {
     "compression": {}
   },
-  "session": {
-  },
-  "auth": {
-  },
-  "parse": {
-  },
-  "routes": {
-  },
+  "session": {},
+  "auth": {},
+  "parse": {},
+  "routes": {},
   "files": {
     "loopback#static": {
       "params": "$!../client"

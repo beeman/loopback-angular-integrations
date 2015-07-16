@@ -1,0 +1,16 @@
+<dui-panel>
+  <dui-panel-header>
+    <h3 class="panel-title">
+      <a href="" ui-sref="app.files.list">
+        Files
+      </a>
+      /
+      <a href="" ui-sref="app.files.container({container: ctrl.container.name})">
+        {{ctrl.container.name}}
+      </a>
+      /
+      {{ctrl.file.name}}
+    </h3>
+  </dui-panel-header>
+  <pre>{{ctrl.file|json}}</pre>
+</dui-panel>

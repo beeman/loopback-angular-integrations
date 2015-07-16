@@ -8,7 +8,9 @@ var app = angular.module('app', [
   'ui.bootstrap',
   'ngCsv',
   'fc.table',
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+
+  'app.file'
 ]);
 
 app.run(function ($rootScope, DuiConfig) {
@@ -16,6 +18,7 @@ app.run(function ($rootScope, DuiConfig) {
   var appNavitems = [
     {label: 'Items', href: '#/app/items/list'},
     {label: 'Tags', href: '#/app/tags/list'},
+    {label: 'Files', href: '#/app/files/list'},
   ];
   var appConfig = {
     app: {

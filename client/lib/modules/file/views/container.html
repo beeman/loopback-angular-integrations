@@ -1,0 +1,19 @@
+<dui-panel>
+  <dui-panel-header>
+    <h3 class="panel-title">
+      <a href="" ui-sref="app.files.list">Files</a> / {{ctrl.container.name}}
+    </h3>
+  </dui-panel-header>
+
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="file in ctrl.files">
+      <a href="#"
+         ui-sref="app.files.file({container: file.container, file: file.name})">{{file.name}}</a>
+      <span class="pull-right">
+      <a class="btn btn-xs btn-default" href="#"
+         ui-sref="app.files.download({container: file.container, file: file.name})">Download</a>
+      </span>
+    </li>
+  </ul>
+
+</dui-panel>

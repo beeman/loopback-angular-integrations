@@ -1,12 +1,12 @@
 {
   "name": "Tag",
   "base": "PersistedModel",
-  "idInjection": true,
   "strict": "throw",
-  "persistUndefinedAsNull": true,
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
+  "persistUndefinedAsNull": true,
   "mixins": {
     "Paginate": {
       "config": {

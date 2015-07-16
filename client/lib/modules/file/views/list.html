@@ -1,0 +1,13 @@
+<dui-panel>
+  <dui-panel-header>
+    <h3 class="panel-title">Files</h3>
+  </dui-panel-header>
+
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="container in ctrl.containers">
+      <a href="#"
+         ui-sref="app.files.container({container: container.name})">{{container.name}}</a>
+    </li>
+  </ul>
+
+</dui-panel>
