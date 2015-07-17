@@ -1,0 +1,42 @@
+<dui-panel>
+  <dui-panel-header>
+    <h3 class="panel-title">
+      <a href="" ui-sref="app.files.list">Files</a>
+      /
+      <a href="" ui-sref="app.files.container({container: ctrl.container.name})">{{ctrl.container.name}}</a>
+      / Upload
+    </h3>
+  </dui-panel-header>
+
+  <dui-panel-content>
+
+    <dui-box class="col-md-6">
+      <dui-box-content>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span ng-if="!ctrl.item.id">Add Item</span>
+            <span ng-if="ctrl.item.id">Edit Item</span>
+          </div>
+          <div class="panel-body">
+            <form id="itemForm"
+                  sf-schema="ctrl.schema"
+                  sf-form="ctrl.form"
+                  sf-model="ctrl.upload"
+                  ng-submit="ctrl.onSubmit(itemForm)">
+            </form>
+          </div>
+        </div>
+      </dui-box-content>
+    </dui-box>
+
+
+    <dui-box class="col-md-6">
+      <dui-box-content>
+        <pre>{{ctrl.upload|json}}</pre>
+        <pre>{{ctrl.containerList|json}}</pre>
+      </dui-box-content>
+    </dui-box>
+
+  </dui-panel-content>
+
+</dui-panel>

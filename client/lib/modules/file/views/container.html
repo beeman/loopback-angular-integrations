@@ -2,6 +2,12 @@
   <dui-panel-header>
     <h3 class="panel-title">
       <a href="" ui-sref="app.files.list">Files</a> / {{ctrl.container.name}}
+
+      <span class="pull-right">
+        <a href="" ui-sref="app.files.upload({container: ctrl.container.name})" class="btn btn-default btn-xs">
+          Upload file
+        </a>
+      </span>
     </h3>
   </dui-panel-header>
 
