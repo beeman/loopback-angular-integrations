@@ -6,53 +6,56 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            Items
+            <h3 class="panel-title">
+              Items
+
             <span class="pull-right">
+
+              <div class="btn-group" ng-show="ctrl.itemsSelected.length">
+                <button class="btn btn-default btn-xs" ng-click="ctrl.handleChangeStatus()">Change status</button>
+                <button class="btn btn-default btn-xs" ng-click="ctrl.handleDuplicate()">Duplicate</button>
+                <button class="btn btn-default btn-xs" ng-click="ctrl.handleDelete()">Delete</button>
+                <button class="btn btn-default btn-xs" ng-click="ctrl.handleArchive()">Archive</button>
+                <button class="btn btn-default btn-xs" ng-click="ctrl.handleExport()">Export</button>
+              </div>
+
               <a href="#" ui-sref="app.add" class="btn btn-default btn-xs">+</a>
             </span>
+            </h3>
           </div>
-          <div class="panel-body">
-            <table st-table="ctrl.items" class="table table-bordered table-striped">
-              <tr>
-                <th cs-select-all="ctrl.items" class="st-checkbox">&nbsp;</th>
-                <th class="col-md-6" st-sort='name'>Name</th>
-                <th class="col-md-2">Status</th>
-                <th class="col-md-2">Person</th>
-                <th class="col-md-2">Created</th>
-              </tr>
-              <tr ng-repeat="item in ctrl.items">
-                <td cs-select="item"></td>
-                <td>
-                  <a href="#" ui-sref="app.edit({itemId: item.id})">
-                    {{item.name}}
-                  </a>
-                  <span class="pull-right" ng-repeat="tag in item.tags">
-                    <span class="badge">{{tag.name}}</span>&nbsp;
-                  </span>
-                </td>
-                <td>
-                  {{item.status}}
-                </td>
-                <td>
-                  {{item.person.name}}
-                </td>
-                <td class="text-nowrap">
-                  {{item.created | date: 'medium'}}
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div class="panel-footer">
-            <select
-              ng-model="ctrl.batchOperation"
-              ng-options="item.value as item.label for item in ctrl.batchOperations">
-
-            </select>
-            <a ng-click="ctrl.applyBatchOperation()" class="btn btn-default btn-xs">Apply</a>
-
-            <button class="btn btn-default btn-xs" ng-click="ctrl.modalExport()">Export</button>
-
-          </div>
+          <table st-table="ctrl.items" class="table table-bosrdered table-striped">
+            <tr>
+              <th cs-select-all="ctrl.items" class="st-checkbox">&nbsp;</th>
+              <th class="col-md-6" st-sort='name'>Name</th>
+              <th class="col-md-2">Status</th>
+              <th class="col-md-2">Person</th>
+              <th class="col-md-2">Created</th>
+            </tr>
+            <tr ng-repeat="item in ctrl.items">
+              <td cs-select="item"></td>
+              <td>
+                <a href="#" ui-sref="app.edit({itemId: item.id})" ng-hide="item.archived">
+                  {{item.name}}
+                </a>
+                <span ng-show="item.archived">
+                  <small class="label label-default">Archived</small>
+                  {{item.name}}
+                </span>
+                <span class="pull-right" ng-repeat="tag in item.tags">
+                  <span class="badge">{{tag.name}}</span>&nbsp;
+                </span>
+              </td>
+              <td>
+                {{item.status}}
+              </td>
+              <td>
+                {{item.person.name}}
+              </td>
+              <td class="text-nowrap">
+                {{item.created | date: 'medium'}}
+              </td>
+            </tr>
+          </table>
         </div>
 
       </dui-box-content>

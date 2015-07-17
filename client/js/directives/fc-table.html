@@ -1,0 +1,186 @@
+<div class="fc-table">
+    <div st-table="table.state.items" st-safe-src="table.state.paginated" st-pipe="table.getData">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div class="form-inline" role="grid">
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="table.refresh()"
+                                    ng-disabled="table.isLoading">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                            &nbsp;
+                            <div ng-show="table.isLoading" class="badge badge-default">
+                                Loading...
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 text-center" style="padding-top: 5px;">
+
+                            <div ng-show="table.state.selectedIds.length" class="">
+
+                                {{table.state.selectedIds.length}} items selected.
+
+                                <a href=""
+                                   ng-show="table.state.selectedIds.length !== table.state.counters.itemsTotal"
+                                   ng-click="table.toggleSelectAll();">
+                                    Select all {{table.state.counters.itemsTotal}} items
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="pull-right">
+
+                                <button ng-repeat="button in table.config.topButtons" type="button"
+                                        class="{{button.class}}"
+                                        ng-disabled="table.isLoading"
+                                        ng-click="button.click(item)">
+                                    <i ng-if="button.icon" class="{{button.icon}}"></i>
+                                    {{button.label}}
+                                </button>
+
+
+                                <div class="input-group">
+                                    <input st-search type="search" class="form-control input-sm"
+                                           ng-disabled="table.isLoading"
+                                           placeholder="Search">
+
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-default"
+                                                ng-disabled="table.isLoading"
+                                                ng-click="table.toggleSearch()">
+                                            <i class="glyphicon glyphicon-wrench"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div ng-hide="!table.showSearch" ng-class="{'panel-body': table.showSearch}">
+                <form name="searchFilter"
+                      sf-schema="table.config.search.schema"
+                      sf-form="table.config.search.form"
+                      sf-model="table.searchModel"
+                      sf-options="{ formDefaults: { ngModelOptions: { debounce: 500 } }}">
+                </form>
+            </div>
+
+
+            <table class="table table-striped table-bordered table-hover  table-small-font">
+                <thead>
+                <tr role="row">
+                    <th fc-select-all="table.state.items" class="fc-checkbox"></th>
+                    <th ng-repeat="column in table.config.columns"
+                        st-sort="{{column.sortField}}"
+                        class="{{column.class}}">
+                        {{column.label}}
+                    </th>
+                    <th ng-if="table.config.rowButtons.length" style="width: 10%!important;">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in table.state.items track by item.id">
+                    <td fc-select="item" class="select-box"></td>
+
+                    <td ng-repeat="column in table.config.columns" ng-class="{'text-muted': table.isLoading}">
+                            <span ng-show="column.click">
+                                <a href="" ng-click="column.click(item)">
+                                    <span ng-if="!column.relatedField">
+                                        {{item[column.field]}}
+                                    </span>
+                                    <span ng-if="column.relatedField">
+                                        {{item[column.field][column.relatedField]}}
+                                    </span>
+                                </a>
+                            </span>
+                            <span ng-show="!column.click">
+                                <span ng-if="!column.relatedField">
+                                    {{item[column.field]}}
+                                </span>
+                                <span ng-if="column.relatedField">
+                                    {{item[column.field][column.relatedField]}}
+                                </span>
+                            </span>
+                    </td>
+                    <td ng-if="table.config.rowButtons.length">
+                        <div class="text-nowrap btn-group btn-group-xs">
+                            <button ng-repeat="button in table.config.rowButtons" type="button"
+                                    class="{{button.class}}"
+                                    ng-disabled="table.isLoading"
+                                    ng-click="button.click(item)">
+                                <i ng-if="button.icon" class="{{button.icon}}"></i>
+                                {{button.label}}
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>
+                            <select class="form-control input-sm" style="display: inline; width: 60px;"
+                                    ng-disabled="table.isLoading"
+                                    ng-model="table.config.itemsPerPage">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="">All</option>
+                            </select>
+                            records per page
+                        </label>
+
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <div role="alert" ng-hide="table.isLoading || table.state.counters.itemsTotal < 1">
+                            {{table.state.counters.itemsFrom + 1}}
+                            - {{table.state.counters.itemsTo}} of
+                            {{table.state.counters.itemsTotal}}
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="dataTables_paginate text-right">
+                            <div st-template="js/directives/fc-table-pagination.html" st-pagination=""
+                                 st-items-by-page="table.state.counters.itemsPerPage"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" ng-if="table.config.debug">
+        <div class="col-md-6">
+            <h5>Table State</h5>
+            <pre>{{table.tableState|json}}</pre>
+
+            <h5>Table Config</h5>
+            <pre>{{table.config|json}}</pre>
+        </div>
+        <div class="col-md-6">
+
+            <h5>Paginate State</h5>
+            <pre>{{table.state |json}}</pre>
+
+        </div>
+    </div>
+
+</div>

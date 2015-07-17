@@ -7,6 +7,13 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "Paginate": {
+      "config": {
+        "limit": "10"
+      }
+    }
+  },
   "properties": {
     "id": {
       "type": "string",

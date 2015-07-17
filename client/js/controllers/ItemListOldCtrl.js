@@ -1,5 +1,6 @@
 var app = angular.module('app');
-app.controller('ItemListCtrl', function ($scope, $state, $modal, Item, items) {
+app.controller('ItemListOldCtrl', function ($scope, $state, $modal, $document,
+                                         $timeout, Item, items) {
 
   var self = this;
 
@@ -18,82 +19,51 @@ app.controller('ItemListCtrl', function ($scope, $state, $modal, Item, items) {
     })
   }, true);
 
-  // The available batch operations
-  this.batchOperations = [{
-    value: '',
-    label: 'Select batch operation',
-    disable: true
-  }, {
-    value: 'changeStatus',
-    label: 'Change status'
-  }, {
-    value: 'delete',
-    label: 'Delete'
-  }, {
-    value: 'duplicate',
-    label: 'Duplicate'
-  }, {
-    value: 'export',
-    label: 'Export'
-  }];
 
-  // The selected batch operation
-  this.batchOperation = "";
-
-  // The action to run with the batch operations
-  this.applyBatchOperation = function () {
-
-    // Check if there are items selected
-    if (this.itemsSelected.length < 1) {
-      window.alert('Please select one ore more items');
-      return;
-    }
-
-    // Check if there is a batch operation selected
-    if (this.batchOperation === "") {
-      window.alert('Please pick batch operation');
-      return;
-    }
-
-    this.runBatchOperations(this.batchOperation, this.itemsSelected);
+  this.handleChangeStatus = function () {
+    this.setItemStatus(this.getSelectedIds(),
+      window.prompt('Enter the new status'));
   };
 
-  // This runs the actual operation on the items
-  this.runBatchOperations = function (action, items) {
-
-    switch (action) {
-      case 'changeStatus':
-        this.setItemStatus(items, window.prompt('Enter the new status'));
-        break;
-      case 'delete':
-        if (window.confirm('Are you sure?')) {
-          this.deleteItems(items);
-        }
-        break;
-      case 'duplicate':
-        this.duplicateItems(items);
-        break;
-      case 'export':
-        this.exportItems(items);
-        break;
-      default:
-        window.alert('Running ' + action + ' on ' + items.length + ' items');
+  this.handleDelete = function () {
+    if (window.confirm('Are you sure?')) {
+      this.deleteItems(this.getSelectedIds());
     }
   };
 
-  this.setItemStatus = function (items, newStatus) {
-    var itemIds = items.map(function (item) {
-      return item.id;
-    });
+  this.handleDuplicate = function () {
+    this.duplicateItems(this.itemsSelected);
+  };
 
+  this.handleArchive= function () {
+    this.archiveItems(this.getSelectedIds());
+  };
+
+  this.handleExport = function () {
+    var datestamp = new Date().getTime();
+    var options = {
+      filename: 'item-export-' + datestamp + '.csv',
+      fields: ['id', 'name', 'status']
+    };
+
+    Item.export({
+      fields: options.fields,
+      idList: this.getSelectedIds()
+    }).$promise
+      .then(function (res) {
+        self.pushDownload(res.csv, options.filename);
+      });
+  };
+
+  this.setItemStatus = function (itemIds, newStatus) {
     Item.updateAll({where: {id: {inq: itemIds}}}, {status: newStatus}).$promise.then(function () {
       $state.go($state.current, {}, {reload: true})
     });
   };
 
-  this.deleteItems = function (items) {
-    items.map(function (item) {
-      return Item.deleteById({id: item.id}).$promise.then(function () {
+  this.deleteItems = function (itemIds) {
+    itemIds.map(function (itemId) {
+      return Item.deleteById({id: itemId}).$promise.then(function () {
         $state.go($state.current, {}, {reload: true})
       });
     });
@@ -102,9 +72,16 @@ app.controller('ItemListCtrl', function ($scope, $state, $modal, Item, items) {
   this.duplicateItems = function (items) {
     items.map(function (item) {
       delete item.id;
+      delete item.isSelected;
       return Item.create(item).$promise.then(function () {
         $state.go($state.current, {}, {reload: true})
       });
+    });
+  };
+
+  this.archiveItems = function(itemIds) {
+    Item.updateAll({where: {id: {inq: itemIds}}}, {archived: true}).$promise.then(function () {
+      $state.go($state.current, {}, {reload: true})
     });
   };
 
@@ -142,32 +119,33 @@ app.controller('ItemListCtrl', function ($scope, $state, $modal, Item, items) {
     })
   };
 
-  this.handleCsvExport = function (options) {
-    var fields = {};
-
-    options.fields.map(function (field) {
-      if (field.selected) {
-        fields[field.name] = field.label;
-      }
-    });
-
-    return Item.find({
-      filter: {
-        where: {
-          id: {
-            inq: this.getSelectedIds()
-          }
-        },
-        fields: fields
-      }
-    }).$promise.then(function (res) {
-        if (options.headers) {
-          res.unshift(fields);
-        }
-        return res;
-      });
+  this.export = function () {
   };
 
+  this.pushDownload = function (data, filename, mimetype, charset) {
+    filename = filename || 'export.csv';
+    mimetype = mimetype || 'text/csv';
+    charset = charset || 'utf-8';
+
+    var blob = new Blob([data], {
+      type: mimetype + ';charset=' + charset + ';'
+    });
+
+    if (window.navigator.msSaveOrOpenBlob) {
+      navigator.msSaveBlob(blob, filename);
+    } else {
+      var downloadLink = angular.element('<a></a>');
+      downloadLink.attr('href', window.URL.createObjectURL(blob));
+      downloadLink.attr('download', filename);
+      downloadLink.attr('target', '_blank');
+
+      $document.find('body').append(downloadLink);
+      $timeout(function () {
+        downloadLink[0].click();
+        downloadLink.remove();
+      }, null);
+    }
+  };
 
   this.modalExport = function () {
     $modal.open({

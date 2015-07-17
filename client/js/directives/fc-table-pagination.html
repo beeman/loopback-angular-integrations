@@ -1,0 +1,25 @@
+<ul class="pagination pagination-sm" ng-if="numPages>1">
+    <li ng-class="{disabled: currentPage==1}">
+        <a ng-click="selectPage(1)">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+        </a>
+    </li>
+    <li ng-class="{disabled: currentPage==1}">
+        <a ng-click="selectPage(currentPage-1)">
+            <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+        </a>
+    </li>
+    <li ng-repeat="page in pages" ng-class="{active: page==currentPage}">
+        <a ng-click="selectPage(page)">{{ page }}</a>
+    </li>
+    <li ng-class="{disabled: currentPage>=numPages}">
+        <a ng-click="selectPage(currentPage+1)" aria-label="Next">
+            <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+        </a>
+    </li>
+    <li ng-class="{disabled: currentPage>=numPages}">
+        <a ng-click="selectPage(numPages)">
+            <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+        </a>
+    </li>
+</ul>

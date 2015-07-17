@@ -6,15 +6,16 @@ var app = angular.module('app', [
   'ui.select',
   'ui.router',
   'ui.bootstrap',
-  'smart-table',
   'ngCsv',
+  'fc.table',
   'pascalprecht.translate'
 ]);
 
 app.run(function ($rootScope, DuiConfig) {
   var appName = 'Integrations';
   var appNavitems = [
-    {label: 'Items', href: '#/app/items'}
+    {label: 'Items', href: '#/app/items/list'},
+    {label: 'Tags', href: '#/app/tags/list'},
   ];
   var appConfig = {
     app: {
@@ -57,8 +58,190 @@ app.config(['$stateProvider', '$urlRouterProvider',
       })
       .state('app.items', {
         url: '/items',
+        abstract: true,
+        template: '<ui-view></ui-view>'
+      }).state('app.items.list', {
+        url: '/list',
+        template: '<fc-table config="ctrl.config"></fc-table>',
+        controllerAs: 'ctrl',
+        controller: function ($state, $window, Item) {
+          this.config = {
+            model: Item,
+            itemsPerPage: 5,
+            debug: true,
+            loadingTimeout: 1000,
+            includeModels: [
+              'person',
+              'tags'
+            ],
+            columns: [{
+              field: 'name',
+              sortField: 'name',
+              class: 'sorting col-md-2',
+              label: 'Name',
+              click: function (item) {
+                $state.go('app.items.view', {itemId: item.id});
+              }
+            }, {
+              field: 'status',
+              sortField: 'status',
+              class: 'sorting col-md-2',
+              label: 'Status'
+            }, {
+              field: 'description',
+              sortField: 'description',
+              class: 'sorting col-md-3 text-nowrap',
+              label: 'Description'
+            }, {
+              field: 'person',
+              sortField: 'personId',
+              relatedField: 'name',
+              class: 'sorting col-md-3 text-nowrap',
+              label: 'Person'
+            }],
+            topButtons: [{
+              label: '',
+              icon: 'fa fa-plus',
+              class: 'btn btn-default btn-sm',
+              show: true,
+              click: function () {
+                $state.go('app.items.add');
+              }
+            }],
+            rowButtons: [{
+              label: 'View',
+              class: 'btn btn-default btn-xs',
+              click: function (item) {
+                $state.go('app.items.view', {itemId: item.id});
+              }
+            }, {
+              label: '',
+              class: 'btn btn-default btn-xs',
+              icon: 'fa fa-pencil',
+              click: function (item) {
+                $state.go('app.items.edit', {itemId: item.id});
+              }
+            }, {
+              label: '',
+              class: 'btn btn-default btn-xs',
+              icon: 'fa fa-trash',
+              click: function (item) {
+                if($window.confirm('Are you sure?')) {
+                  Item.delete({id: item.id}).$promise.then(function(res){
+                    $state.reload();
+                  })
+                }
+              }
+            }],
+            search: {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: {
+                    type: 'string',
+                    title: 'Name'
+                  },
+                  status: {
+                    type: 'string',
+                    title: 'Status'
+                  },
+                  description: {
+                    type: 'string',
+                    title: 'Description'
+                  }
+                }
+              },
+              form: [{
+                type: 'section',
+                htmlClass: 'row',
+                items: [{
+                  type: 'section',
+                  items: [{
+                    htmlClass: 'col-md-4',
+                    key: 'name'
+                  }, {
+                    htmlClass: 'col-md-4',
+                    key: 'status'
+                  }, {
+                    htmlClass: 'col-md-4',
+                    key: 'description'
+                  }]
+                }]
+              }]
+            }
+          };
+        }
+      })
+      .state('app.tags', {
+        url: '/tags',
+        abstract: true,
+        template: '<ui-view></ui-view>'
+      }).state('app.tags.list', {
+        url: '/list',
+        template: '<fc-table config="ctrl.config"></fc-table>',
+        controllerAs: 'ctrl',
+        controller: function ($state, $window, Tag) {
+          this.config = {
+            model: Tag,
+            itemsPerPage: 5,
+            debug: true,
+            loadingTimeout: 250,
+            columns: [{
+              field: 'name',
+              sortField: 'name',
+              class: 'sorting col-md-2',
+              label: 'Name',
+              click: function (item) {
+                $state.go('app.tags.view', {tagId: item.id});
+              }
+            }],
+            search: {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: {
+                    type: 'string',
+                    title: 'Name'
+                  }
+                }
+              },
+              form: [{
+                type: 'section',
+                htmlClass: 'row',
+                items: [{
+                  type: 'section',
+                  items: [{
+                    htmlClass: 'col-md-4',
+                    key: 'name'
+                  }]
+                }]
+              }]
+            }
+          };
+        }
+      })
+      .state('app.tags.view', {
+        url: '/view/:tagId',
+        template: '<pre>{{ctrl.tag|json}}</pre>',
+        resolve: {
+          tag: function ($stateParams, Tag) {
+            return Tag.findById({
+              id: $stateParams.tagId
+            }).$promise.then(function (res) {
+                return res;
+              });
+          }
+        },
+        controller: function(tag){
+          this.tag = tag;
+        },
+        controllerAs: 'ctrl'
+      })
+
+      .state('app.items.old', {
+        url: '/old',
         templateUrl: 'views/items.html',
-        controller: 'ItemListCtrl',
+        controller: 'ItemListOldCtrl',
         controllerAs: 'ctrl',
         resolve: {
           items: function (Item) {
@@ -70,7 +253,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
           }
         }
       })
-      .state('app.edit', {
+      .state('app.items.edit', {
         url: '/edit/:itemId',
         templateUrl: 'views/form.html',
         controller: 'ItemEditCtrl',
@@ -112,7 +295,24 @@ app.config(['$stateProvider', '$urlRouterProvider',
           }
         }
       })
-      .state('app.add', {
+      .state('app.items.view', {
+        url: '/view/:itemId',
+        template: '<pre>{{ctrl.item|json}}</pre>',
+        resolve: {
+          item: function ($stateParams, Item) {
+            return Item.findById({
+              id: $stateParams.itemId
+            }).$promise.then(function (res) {
+              return res;
+            });
+          }
+        },
+        controller: function(item){
+          this.item = item;
+        },
+        controllerAs: 'ctrl'
+      })
+      .state('app.items.add', {
         url: '/add',
         templateUrl: 'views/form.html',
         controller: 'ItemEditCtrl',
@@ -150,91 +350,10 @@ app.config(['$stateProvider', '$urlRouterProvider',
         }
       });
 
-    $urlRouterProvider.otherwise('/app/items');
+    $urlRouterProvider.otherwise('/app/items/list');
   }]);
 
 
 app.controller('AppCtrl', function ($scope) {
   // Nothing to control here :)
-});
-
-app.directive('csSelect', function () {
-  return {
-    require: '^stTable',
-    template: '<input type="checkbox"/>',
-    scope: {
-      row: '=csSelect'
-    },
-    link: function (scope, element, attr, ctrl) {
-
-      element.bind('change', function (evt) {
-        scope.$apply(function () {
-          ctrl.select(scope.row, 'multiple');
-        });
-      });
-
-      scope.$watch('row.isSelected', function (newValue, oldValue) {
-        if (newValue === true) {
-          element.parent().addClass('st-selected');
-          element.children()[0].checked = true;
-        } else {
-          element.parent().removeClass('st-selected');
-          element.children()[0].checked = false;
-        }
-      });
-    }
-  };
-});
-
-app.directive('csSelectAll', function () {
-  return {
-    require: '^stTable',
-    template: '<input type="checkbox" ng-model="isAllSelected"/>',
-    scope: {
-      rows: '=csSelectAll'
-    },
-    link: function (scope) {
-
-      function getAllSelected() {
-        return (getTotalRows() === getSelectedRows());
-      }
-
-      function getTotalRows() {
-        return scope.rows.length;
-      }
-
-      function getSelectedRows() {
-        var selectedRows = 0;
-        scope.rows.forEach(function (row) {
-          if (row.isSelected) {
-            selectedRows++;
-          }
-        });
-        return selectedRows;
-      }
-
-      function setAllRows(bool) {
-        scope.rows.forEach(function (row) {
-          if (!row.isSelected == bool) {
-            row.isSelected = bool;
-          }
-        });
-      }
-
-      scope.$watch('rows', function () {
-        scope.isAllSelected = getAllSelected();
-      }, true);
-
-      scope.$watch('isAllSelected', function () {
-        if (scope.isAllSelected) {
-          setAllRows(true);
-        } else {
-          if (getAllSelected()) {
-            setAllRows(false);
-          }
-        }
-      });
-      
-    }
-  };
 });
